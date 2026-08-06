@@ -1,0 +1,133 @@
+@import "tailwindcss";
+
+/*
+ * Design tokens
+ * --------------
+ * Raw palettes are defined once. Semantic tokens reference them and are exposed
+ * as Tailwind utilities via @theme (e.g. `text-foreground`, `bg-raised`).
+ * Dark mode overrides the same semantic variables — do NOT use `dark:` variants.
+ */
+
+:root {
+  /* Raw palette (slate/blue neutrals). Replace with your brand palette. */
+  --color-slate-50: #f8fafc;
+  --color-slate-100: #f1f5f9;
+  --color-slate-200: #e2e8f0;
+  --color-slate-300: #cbd5e1;
+  --color-slate-400: #94a3b8;
+  --color-slate-500: #64748b;
+  --color-slate-600: #475569;
+  --color-slate-700: #334155;
+  --color-slate-800: #1e293b;
+  --color-slate-900: #0f172a;
+  --color-slate-950: #020617;
+
+  --color-accent-400: #60a5fa;
+  --color-accent-500: #3b82f6;
+  --color-accent-600: #2563eb;
+  --color-accent-700: #1d4ed8;
+
+  /* Semantic tokens — light mode */
+  --color-foreground: var(--color-slate-950);
+  --color-muted: var(--color-slate-600); /* meets WCAG AA on surface/raised */
+  --color-faint: var(--color-slate-400); /* decorative only — NOT accessible text */
+  --color-accent: var(--color-accent-600);
+  --color-accent-hover: var(--color-accent-700);
+  /*
+   * Foreground for text sitting ON an accent background. Paired with
+   * `--color-accent`, never assumed to be white: dark mode lightens the accent
+   * so that `text-accent` reads on a dark page, which leaves white text on
+   * `bg-accent` at only 2.5:1. Flipping this token to near-black there keeps
+   * accent buttons legible in both modes.
+   * #ffffff on --color-accent-600 → 5.2:1 (AA); on --color-accent-700 → 6.7:1.
+   */
+  --color-on-accent: #ffffff;
+  --color-error: #b91c1c; /* ~5.9:1 on white — WCAG AA */
+  --color-surface: var(--color-slate-50);
+  --color-raised: #ffffff;
+  --color-divider: var(--color-slate-200);
+  --color-border-accent: var(--color-accent);
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --color-foreground: var(--color-slate-50);
+    --color-muted: var(--color-slate-300);
+    --color-faint: var(--color-slate-500);
+    --color-accent: var(--color-accent-400);
+    --color-accent-hover: #93c5fd;
+    /* slate-950 on --color-accent-400 → 7.9:1 (AA); on #93c5fd → 11.2:1. */
+    --color-on-accent: var(--color-slate-950);
+    --color-error: #f87171; /* ~6.8:1 on slate-950 — WCAG AA */
+    --color-surface: var(--color-slate-950);
+    --color-raised: var(--color-slate-900);
+    --color-divider: var(--color-slate-800);
+  }
+}
+
+/*
+ * Expose semantic tokens as Tailwind color utilities.
+ * Usage: text-foreground, bg-raised, border-divider, text-accent-hover, etc.
+ */
+@theme {
+  --color-foreground: var(--color-foreground);
+  --color-muted: var(--color-muted);
+  --color-faint: var(--color-faint);
+  --color-accent: var(--color-accent);
+  --color-accent-hover: var(--color-accent-hover);
+  --color-on-accent: var(--color-on-accent);
+  --color-error: var(--color-error);
+  --color-surface: var(--color-surface);
+  --color-raised: var(--color-raised);
+  --color-divider: var(--color-divider);
+  --color-border-accent: var(--color-border-accent);
+}
+
+/* Base styles */
+html,
+body,
+#root {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--color-surface);
+  color: var(--color-foreground);
+  font-family:
+    system-ui,
+    -apple-system,
+    "Segoe UI",
+    Roboto,
+    Helvetica,
+    Arial,
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* Visible focus for keyboard users */
+:focus-visible {
+  outline: 2px solid var(--color-accent);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/* Accessibility: honor reduced-motion */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+}
+
+/* Accessibility: Windows high-contrast mode */
+@media (forced-colors: active) {
+  :focus-visible {
+    outline: 2px solid CanvasText;
+  }
+}

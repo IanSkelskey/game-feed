@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/vite.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#ffffff" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#0b1120" media="(prefers-color-scheme: dark)" />
+    <meta name="description" content="React + TypeScript + Vite + Tailwind v4 template." />
+    <title>React TS Template</title>
+
+    <!--
+      Social + SEO metadata. Replace the placeholder URL/image/handle values
+      below when you fork the template. Remove tags you don't need.
+    -->
+    <link rel="canonical" href="https://example.com/" />
+    <!-- Open Graph (Facebook, LinkedIn, Discord, etc.) -->
+    <meta property="og:type" content="website" />
+    <meta property="og:title" content="React TS Template" />
+    <meta property="og:description" content="React + TypeScript + Vite + Tailwind v4 template." />
+    <meta property="og:url" content="https://example.com/" />
+    <!-- <meta property="og:image" content="https://example.com/og-image.png" /> -->
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="React TS Template" />
+    <meta name="twitter:description" content="React + TypeScript + Vite + Tailwind v4 template." />
+    <!-- <meta name="twitter:image" content="https://example.com/og-image.png" /> -->
+    <!-- <meta name="twitter:site" content="@yourhandle" /> -->
+    <!-- Preconnect to external origins (fonts, API hosts) as needed -->
+    <!-- <link rel="preconnect" href="https://fonts.googleapis.com" /> -->
+    <!--
+      GitHub Pages SPA: restore path encoded by 404.html before React boots.
+      Inlined (rather than external) so it is not a render-blocking request
+      and runs synchronously before the router reads window.location.
+      https://github.com/rafgraph/spa-github-pages
+    -->
+    <script>
+      (function (l) {
+        if (l.search[1] === "/") {
+          var decoded = l.search
+            .slice(1)
+            .split("&")
+            .map(function (s) {
+              return s.replace(/~and~/g, "&");
+            });
+          window.history.replaceState(
+            null,
+            null,
+            l.pathname.slice(0, -1) + decoded[0] + (decoded[1] ? "?" + decoded[1] : "") + l.hash,
+          );
+        }
+      })(window.location);
+    </script>
+  </head>
+  <body>
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
