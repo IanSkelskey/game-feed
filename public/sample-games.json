@@ -1,0 +1,786 @@
+[
+  {
+    "id": "steam-620",
+    "source": "steam",
+    "title": "Portal 2",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/620/25a5a16b2423bf7487ac5340b5b0948cef48c5f8.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/620/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-31T21:40:00.000Z",
+    "playtimeMinutes": 1284,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 6,
+    "totalCount": 51,
+    "completionPct": 12,
+    "recentAchievements": [
+      {
+        "id": "steam-620-ACH.BRIDGE",
+        "title": "Bridge Over Troubling Water",
+        "description": "Complete the first Hard Light Bridge test",
+        "earnedAt": "2026-07-31T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/620/BRIDGE.jpg"
+      },
+      {
+        "id": "steam-620-ACH.SAVE_CUBE",
+        "title": "Preservation of Mass",
+        "description": "Break the rules in Test Chamber 07",
+        "earnedAt": "2026-07-31T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/620/SAVE_CUBE.jpg"
+      },
+      {
+        "id": "steam-620-ACH.BOX_HOLE_IN_ONE",
+        "title": "Drop Box",
+        "description": "Place a cube on a button without touching the cube",
+        "earnedAt": "2026-07-31T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/620/BOX_HOLE_IN_ONE.jpg"
+      },
+      {
+        "id": "steam-620-ACH.LASER",
+        "title": "Undiscouraged",
+        "description": "Complete the first Thermal Discouragement Beam test",
+        "earnedAt": "2026-07-31T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/620/LASER.jpg"
+      }
+    ]
+  },
+  {
+    "id": "steam-413150",
+    "source": "steam",
+    "title": "Stardew Valley",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/413150/35d1377200084a4034238c05b0c8930451e2fb40.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/413150/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-30T21:40:00.000Z",
+    "playtimeMinutes": 9620,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 0,
+    "totalCount": 49,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "steam-730",
+    "source": "steam",
+    "title": "Counter-Strike 2",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/730/8dbc71957312bbd3baea65848b545be9eae2a355.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/730/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-29T21:40:00.000Z",
+    "playtimeMinutes": 24915,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 1,
+    "totalCount": 1,
+    "completionPct": 100,
+    "recentAchievements": [
+      {
+        "id": "steam-730-PLAY_CS2",
+        "title": "A New Beginning",
+        "description": "",
+        "earnedAt": "2026-07-29T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/730/f75dd04fa12445a8ec43be65fa16ff1b8d2bf82e.jpg"
+      }
+    ]
+  },
+  {
+    "id": "ra-355",
+    "source": "retroachievements",
+    "title": "The Legend of Zelda: A Link to the Past",
+    "platform": "SNES/Super Famicom",
+    "iconUrl": "https://media.retroachievements.org/Images/059119.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/0e4ad552eaa734c35c136c11e7183efa.png",
+    "lastPlayedAt": "2026-07-28T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 10,
+    "totalCount": 109,
+    "completionPct": 9,
+    "recentAchievements": [
+      {
+        "id": "ra-2296",
+        "title": "Mirror World",
+        "description": "Obtain the Magic Mirror.",
+        "earnedAt": "2026-07-28T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/129314.png",
+        "points": 5,
+        "hardcore": false
+      },
+      {
+        "id": "ra-2291",
+        "title": "Pendant of Power",
+        "description": "Acquire the Pendant of Power.",
+        "earnedAt": "2026-07-28T20:51:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/129272.png",
+        "points": 5,
+        "hardcore": false
+      },
+      {
+        "id": "ra-312936",
+        "title": "Despoiled the Desert",
+        "description": "Open all treasure chests in the Desert Palace.",
+        "earnedAt": "2026-07-28T20:14:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/345916.png",
+        "points": 3,
+        "hardcore": false
+      },
+      {
+        "id": "ra-2288",
+        "title": "Book of Prayer",
+        "description": "Obtain the Book of Mudora.",
+        "earnedAt": "2026-07-28T19:37:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/129310.png",
+        "points": 5,
+        "hardcore": false
+      }
+    ]
+  },
+  {
+    "id": "steam-990080",
+    "source": "steam",
+    "title": "Hogwarts Legacy",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/990080/a9ecb94f249768d0ee5ccecbffe8d8c06d9bed59.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/990080/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-26T21:40:00.000Z",
+    "playtimeMinutes": 3450,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 4,
+    "totalCount": 45,
+    "completionPct": 9,
+    "recentAchievements": [
+      {
+        "id": "steam-990080-PFA_23",
+        "title": "A Keen Sense of Spell",
+        "description": "",
+        "earnedAt": "2026-07-26T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/990080/c54dcf12698edd975e71c525185854c635f60941.jpg"
+      },
+      {
+        "id": "steam-990080-PFA_7",
+        "title": "Troll with the Punches",
+        "description": "",
+        "earnedAt": "2026-07-26T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/990080/5c9e26c4941ae4fc98c6eaf3c023e3a18dc2df51.jpg"
+      },
+      {
+        "id": "steam-990080-PFA_6",
+        "title": "First Class Student",
+        "description": "",
+        "earnedAt": "2026-07-26T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/990080/00ed9983fddb95930e090930c9e324089f189fc6.jpg"
+      },
+      {
+        "id": "steam-990080-PFA_1",
+        "title": "The Sort Who Makes an Entrance",
+        "description": "",
+        "earnedAt": "2026-07-26T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/990080/f0abf5a97d54b4206b2162f3bac502db8af8df55.jpg"
+      }
+    ]
+  },
+  {
+    "id": "ra-2774",
+    "source": "retroachievements",
+    "title": "Jak and Daxter: The Precursor Legacy",
+    "platform": "PlayStation 2",
+    "iconUrl": "https://media.retroachievements.org/Images/122562.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/a86c4aec1bcf14eb30646ed8df2d2401.jpg",
+    "lastPlayedAt": "2026-07-24T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 25,
+    "totalCount": 61,
+    "completionPct": 41,
+    "recentAchievements": [
+      {
+        "id": "ra-245882",
+        "title": "Lurk No Further",
+        "description": "Defeat the lurker ambush in Boggy Swamp",
+        "earnedAt": "2026-07-24T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/379115.png",
+        "points": 3,
+        "hardcore": true
+      },
+      {
+        "id": "ra-245911",
+        "title": "Power Surge",
+        "description": "Collect 50 power cells",
+        "earnedAt": "2026-07-24T20:51:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/379149.png",
+        "points": 10,
+        "hardcore": true
+      },
+      {
+        "id": "ra-245903",
+        "title": "Drive to Win",
+        "description": "Collect all of the Precursor Orbs in Precursor Basin",
+        "earnedAt": "2026-07-24T20:14:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/379141.png",
+        "points": 10,
+        "hardcore": true
+      },
+      {
+        "id": "ra-245878",
+        "title": "Nature Is Healing",
+        "description": "Cure the dark eco infected plants in Precursor Basin",
+        "earnedAt": "2026-07-24T19:37:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/379111.png",
+        "points": 2,
+        "hardcore": true
+      }
+    ]
+  },
+  {
+    "id": "steam-570",
+    "source": "steam",
+    "title": "Dota 2",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/570/0bbb630d63262dd66d2fdd0f7d37e8661a410075.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/570/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-23T21:40:00.000Z",
+    "playtimeMinutes": 18240,
+    "steamType": "game",
+    "achievementSupport": "none",
+    "earnedCount": 0,
+    "totalCount": 0,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "steam-3527290",
+    "source": "steam",
+    "title": "PEAK",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/3527290/b3a992fd5991bd2f4c956d58e062b0ce2988d6cd.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3527290/480bd879ac737921bfa2529a6fea15961267ad21/library_600x900.jpg?t=1775581133",
+    "lastPlayedAt": "2026-07-21T21:40:00.000Z",
+    "playtimeMinutes": 1905,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 50,
+    "totalCount": 54,
+    "completionPct": 93,
+    "recentAchievements": [
+      {
+        "id": "steam-3527290-DisasterResponseBadge",
+        "title": "Disaster Response Badge",
+        "description": "Pull an unconscious friend 30m with the Rescue Claw.",
+        "earnedAt": "2026-07-21T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3527290/e15c55deafcdfd3e6cb185100384c75d0e44496c.jpg"
+      },
+      {
+        "id": "steam-3527290-NeedlepointBadge",
+        "title": "Needlepoint Badge",
+        "description": "Have a lot of cactuses stuck to you.",
+        "earnedAt": "2026-07-21T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3527290/e54c31508e016e0599a54dc344cd63a50cf04a00.jpg"
+      },
+      {
+        "id": "steam-3527290-MegaentomologyBadge",
+        "title": "Megaentomology Badge",
+        "description": "Survive an Antlion attack.",
+        "earnedAt": "2026-07-21T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3527290/d370dcb90349afee0020fe3e3bb919f9f35c5092.jpg"
+      },
+      {
+        "id": "steam-3527290-AstronomyBadge",
+        "title": "Astronomy Badge",
+        "description": "Look a little too closely at the blazing sun.",
+        "earnedAt": "2026-07-21T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/3527290/8a4dc7bbf6d10ac13a7d55ad16ff21c1c5c61c2d.jpg"
+      }
+    ]
+  },
+  {
+    "id": "steam-3240220",
+    "source": "steam",
+    "title": "Grand Theft Auto V Enhanced",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/3240220/8355a7bbdb704f727bfba80ec56bc7228991338e.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/3240220/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-20T21:40:00.000Z",
+    "playtimeMinutes": 5130,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 0,
+    "totalCount": 77,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "ra-6049",
+    "source": "retroachievements",
+    "title": "Super Mario Sunshine",
+    "platform": "GameCube",
+    "iconUrl": "https://media.retroachievements.org/Images/081263.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/f5e97c0193978d636807084bf658fc1c.png",
+    "lastPlayedAt": "2026-07-18T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 18,
+    "totalCount": 148,
+    "completionPct": 12,
+    "recentAchievements": [
+      {
+        "id": "ra-395009",
+        "title": "From Jumpman to Rocketman",
+        "description": "Unlock the Rocket Nozzle in Delfino Plaza",
+        "earnedAt": "2026-07-18T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/446540.png",
+        "points": 10,
+        "hardcore": false
+      },
+      {
+        "id": "ra-395008",
+        "title": "Time to Speed Things Up",
+        "description": "Unlock the Turbo Nozzle in Delfino Plaza",
+        "earnedAt": "2026-07-18T20:51:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/457424.png",
+        "points": 10,
+        "hardcore": false
+      },
+      {
+        "id": "ra-395006",
+        "title": "Retro Reunion",
+        "description": "Befriend Yoshi in Delfino Plaza",
+        "earnedAt": "2026-07-18T20:14:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/446730.png",
+        "points": 5,
+        "hardcore": false
+      },
+      {
+        "id": "ra-395054",
+        "title": "Optometrist Approved",
+        "description": "Borrow a pair of sunglasses from a Pianta",
+        "earnedAt": "2026-07-18T19:37:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/446514.png",
+        "points": 2,
+        "hardcore": false
+      }
+    ]
+  },
+  {
+    "id": "steam-489830",
+    "source": "steam",
+    "title": "The Elder Scrolls V: Skyrim Special Edition",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/489830/0dfe3eed5658f9fbd8b62f8021038c0a4190f21d.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/489830/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-15T21:40:00.000Z",
+    "playtimeMinutes": 6240,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 5,
+    "totalCount": 75,
+    "completionPct": 7,
+    "recentAchievements": [
+      {
+        "id": "steam-489830-NEW_ACHIEVEMENT_47_0",
+        "title": "Apprentice",
+        "description": "Reach Level 5",
+        "earnedAt": "2026-07-15T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/489830/78d123839809d62a31a6658a0296170b7c0edde6.jpg"
+      },
+      {
+        "id": "steam-489830-NEW_ACHIEVEMENT_2_0",
+        "title": "Bleak Falls Barrow",
+        "description": "Complete \"Bleak Falls Barrow\"",
+        "earnedAt": "2026-07-15T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/489830/47f8b520d258247d69e46592e6790e17df0ed5f5.jpg"
+      },
+      {
+        "id": "steam-489830-NEW_ACHIEVEMENT_43_0",
+        "title": "Dragon Soul",
+        "description": "Absorb a dragon soul",
+        "earnedAt": "2026-07-15T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/489830/e9fbb040b7ffa1d9b814b3df613b73b77650a7b2.jpg"
+      },
+      {
+        "id": "steam-489830-NEW_ACHIEVEMENT_29_0",
+        "title": "Blessed",
+        "description": "Select a Standing Stone blessing",
+        "earnedAt": "2026-07-15T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/489830/3a7e9d9c4f1142fdddbcc6988f23415d72d41ce0.jpg"
+      }
+    ]
+  },
+  {
+    "id": "steam-1240440",
+    "source": "steam",
+    "title": "Halo Infinite",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/1240440/ec684b943169d675439f6cdf64fa2f2aa90d9821.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1240440/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-12T21:40:00.000Z",
+    "playtimeMinutes": 2180,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 5,
+    "totalCount": 144,
+    "completionPct": 3,
+    "recentAchievements": [
+      {
+        "id": "steam-1240440-NEW_ACHIEVEMENT_3_20",
+        "title": "Humble Beginnings",
+        "description": "Complete one level in a Battle Pass.",
+        "earnedAt": "2026-07-12T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1240440/88136bc7244bf35c50dc0779413c7b11953a7032.jpg"
+      },
+      {
+        "id": "steam-1240440-NEW_ACHIEVEMENT_3_22",
+        "title": "Clocking In",
+        "description": "Complete a Daily Challenge.",
+        "earnedAt": "2026-07-12T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1240440/88136bc7244bf35c50dc0779413c7b11953a7032.jpg"
+      },
+      {
+        "id": "steam-1240440-NEW_ACHIEVEMENT_3_23",
+        "title": "We Have a Job For You",
+        "description": "Complete a Weekly Challenge.",
+        "earnedAt": "2026-07-12T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1240440/88136bc7244bf35c50dc0779413c7b11953a7032.jpg"
+      },
+      {
+        "id": "steam-1240440-NEW_ACHIEVEMENT_3_24",
+        "title": "Limited Addition",
+        "description": "Complete a Limited Time Challenge.",
+        "earnedAt": "2026-07-12T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1240440/88136bc7244bf35c50dc0779413c7b11953a7032.jpg"
+      }
+    ]
+  },
+  {
+    "id": "ra-10246",
+    "source": "retroachievements",
+    "title": "Kirby 64: The Crystal Shards",
+    "platform": "Nintendo 64",
+    "iconUrl": "https://media.retroachievements.org/Images/073571.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/db47e1c425c0f766746997726b254cb3.png",
+    "lastPlayedAt": "2026-07-11T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 1,
+    "totalCount": 38,
+    "completionPct": 3,
+    "recentAchievements": [
+      {
+        "id": "ra-48897",
+        "title": "Waddle On!",
+        "description": "Defeat the possessed Waddle Dee and have him join your party",
+        "earnedAt": "2026-07-11T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/661808.png",
+        "points": 2,
+        "hardcore": true
+      }
+    ]
+  },
+  {
+    "id": "steam-1238080",
+    "source": "steam",
+    "title": "Burnout™ Paradise Remastered",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/1238080/5700c6336ecae39a03646678e93e175ae42e0e72.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1238080/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-07T21:40:00.000Z",
+    "playtimeMinutes": 812,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 13,
+    "totalCount": 56,
+    "completionPct": 23,
+    "recentAchievements": [
+      {
+        "id": "steam-1238080-Achievement_GOSCC_15",
+        "title": "Rampage!",
+        "description": "Get a Takedown Rampage",
+        "earnedAt": "2026-07-07T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1238080/2a7bba776a7af562ccfa4c69da0ed878ce18878f.jpg"
+      },
+      {
+        "id": "steam-1238080-Achievement_GOSCC_11",
+        "title": "Underachiever",
+        "description": "Get your C Class License",
+        "earnedAt": "2026-07-07T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1238080/90e655828a5328b501d7cbf0b303de96205c964a.jpg"
+      },
+      {
+        "id": "steam-1238080-Achievement_GOSCC_4",
+        "title": "Great Start",
+        "description": "Win a Race",
+        "earnedAt": "2026-07-07T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1238080/527ee3a6313bb464fe06715f89ab28d54daa995e.jpg"
+      },
+      {
+        "id": "steam-1238080-Achievement_GOSCC_8",
+        "title": "Perfect Rage",
+        "description": "Get 10 Takedowns in Road Rage without Wrecking",
+        "earnedAt": "2026-07-07T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/1238080/105ab3ea4e7f591b26cb36252f86724651150374.jpg"
+      }
+    ]
+  },
+  {
+    "id": "steam-1222670",
+    "source": "steam",
+    "title": "The Sims™ 4",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/1222670/ca6bc8b2411bce4a2cd325ab75f0204bc3a4ad98.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/1222670/library_600x900.jpg",
+    "lastPlayedAt": "2026-07-06T21:40:00.000Z",
+    "playtimeMinutes": 4410,
+    "steamType": "game",
+    "achievementSupport": "none",
+    "earnedCount": 0,
+    "totalCount": 0,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "ra-2772",
+    "source": "retroachievements",
+    "title": "Grand Theft Auto: San Andreas",
+    "platform": "PlayStation 2",
+    "iconUrl": "https://media.retroachievements.org/Images/056407.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/c4e954b93dc03b0f846db4051a1e6d25.png",
+    "lastPlayedAt": "2026-07-03T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 2,
+    "totalCount": 261,
+    "completionPct": 1,
+    "recentAchievements": [
+      {
+        "id": "ra-271119",
+        "title": "It's Like This And Like That",
+        "description": "Clear \"Nuthin' But A 'G' Thang\" in the dancing minigame at a Club with at least 3.500 points",
+        "earnedAt": "2026-07-03T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/322513.png",
+        "points": 5,
+        "hardcore": true
+      },
+      {
+        "id": "ra-219973",
+        "title": "The Gang's All Here",
+        "description": "Clear the mission \"Sweet & Kendl\" [Cheats block all achievements]",
+        "earnedAt": "2026-07-03T20:51:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/243339.png",
+        "points": 2,
+        "hardcore": true
+      }
+    ]
+  },
+  {
+    "id": "ra-9602",
+    "source": "retroachievements",
+    "title": "Super Smash Bros. Melee",
+    "platform": "GameCube",
+    "iconUrl": "https://media.retroachievements.org/Images/081455.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/6bc12f11f086c6c9dd8d09f936775fce.png",
+    "lastPlayedAt": "2026-06-29T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 1,
+    "totalCount": 338,
+    "completionPct": 0,
+    "recentAchievements": [
+      {
+        "id": "ra-434618",
+        "title": "One First Step",
+        "description": "Complete the first stage in Classic mode, or defeat either Mario or Luigi and Peach in Adventure mode",
+        "earnedAt": "2026-06-29T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/494701.png",
+        "points": 1,
+        "hardcore": true
+      }
+    ]
+  },
+  {
+    "id": "steam-204360",
+    "source": "steam",
+    "title": "Castle Crashers",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/204360/9b7625f9b70f103397fd0416fd92abb583db8659.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/204360/library_600x900.jpg",
+    "lastPlayedAt": "2026-06-28T21:40:00.000Z",
+    "playtimeMinutes": 2066,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 0,
+    "totalCount": 12,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "steam-976310",
+    "source": "steam",
+    "title": "Mortal Kombat 11",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/976310/315c46ce25bcb6afa47473588b5fd8edeb3afdfa.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/976310/library_600x900.jpg",
+    "lastPlayedAt": "2026-06-24T21:40:00.000Z",
+    "playtimeMinutes": 1395,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 0,
+    "totalCount": 58,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "ra-2782",
+    "source": "retroachievements",
+    "title": "God of War",
+    "platform": "PlayStation 2",
+    "iconUrl": "https://media.retroachievements.org/Images/120407.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/72d0eaa80cc3412fda4a133ca1f884e8.png",
+    "lastPlayedAt": "2026-06-21T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 6,
+    "totalCount": 43,
+    "completionPct": 14,
+    "recentAchievements": [
+      {
+        "id": "ra-255157",
+        "title": "Granite Gaze",
+        "description": "Encounter the Medusa.",
+        "earnedAt": "2026-06-21T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/663941.png",
+        "points": 3,
+        "hardcore": false
+      },
+      {
+        "id": "ra-254725",
+        "title": "Infused with Strength",
+        "description": "Upgrade any weapon.",
+        "earnedAt": "2026-06-21T20:51:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/663966.png",
+        "points": 3,
+        "hardcore": false
+      },
+      {
+        "id": "ra-255776",
+        "title": "Malevolent Minotaurs",
+        "description": "Encounter the first Minotaurs.",
+        "earnedAt": "2026-06-21T20:14:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/663938.png",
+        "points": 2,
+        "hardcore": false
+      },
+      {
+        "id": "ra-255155",
+        "title": "Cursed Capital",
+        "description": "Reach Athens.",
+        "earnedAt": "2026-06-21T19:37:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/663937.png",
+        "points": 2,
+        "hardcore": false
+      }
+    ]
+  },
+  {
+    "id": "steam-242760",
+    "source": "steam",
+    "title": "The Forest",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/242760/3a6847f6ac5879e48531db52261771d5e22904ac.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/242760/library_600x900.jpg",
+    "lastPlayedAt": "2026-06-18T21:40:00.000Z",
+    "playtimeMinutes": 1640,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 4,
+    "totalCount": 45,
+    "completionPct": 9,
+    "recentAchievements": [
+      {
+        "id": "steam-242760-ACH_SHOOT_BIRDS",
+        "title": "Birdseye",
+        "description": "Kill bird with arrow",
+        "earnedAt": "2026-06-18T21:28:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/242760/8e865e68827121c67f0acf5f3410f961a9b1d496.jpg"
+      },
+      {
+        "id": "steam-242760-ACH_5_STAR_HOTEL",
+        "title": "5 Star Hotel",
+        "description": "Sleep on yacht",
+        "earnedAt": "2026-06-18T20:51:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/242760/aa04ad7ec0f9dc9a453ebbd5381d718f5a5308fe.jpg"
+      },
+      {
+        "id": "steam-242760-ACH_DAYS_SURVIVED_1",
+        "title": "First Night",
+        "description": "Survive 1 night",
+        "earnedAt": "2026-06-18T20:14:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/242760/30eb0635f7d109dc3ba0570dd842a48cd89ddcf9.jpg"
+      },
+      {
+        "id": "steam-242760-ACH_GROUP_SLEEP",
+        "title": "Camp Out",
+        "description": "Sleep with another player (group sleep)",
+        "earnedAt": "2026-06-18T19:37:00.000Z",
+        "badgeUrl": "https://steamcdn-a.akamaihd.net/steamcommunity/public/images/apps/242760/a7ba44fef9a65738173d3b7f6d5abfe16736c587.jpg"
+      }
+    ]
+  },
+  {
+    "id": "ra-2826",
+    "source": "retroachievements",
+    "title": "Tony Hawk's Pro Skater 3",
+    "platform": "PlayStation 2",
+    "iconUrl": "https://media.retroachievements.org/Images/106882.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/bcc3bc4b265dd4f13ba2296293cec2d9.png",
+    "lastPlayedAt": "2026-06-15T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 1,
+    "totalCount": 63,
+    "completionPct": 2,
+    "recentAchievements": [
+      {
+        "id": "ra-261636",
+        "title": "Blame Canada",
+        "description": "Unlock Canada with any skater",
+        "earnedAt": "2026-06-15T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/289763.png",
+        "points": 1,
+        "hardcore": true
+      }
+    ]
+  },
+  {
+    "id": "steam-945360",
+    "source": "steam",
+    "title": "Among Us",
+    "platform": "Steam",
+    "iconUrl": "https://media.steampowered.com/steamcommunity/public/images/apps/945360/b82c3f46da8f3c918e1c9e0d18bd6fa8fcef6801.jpg",
+    "coverUrl": "https://shared.cloudflare.steamstatic.com/store_item_assets/steam/apps/945360/library_600x900.jpg",
+    "lastPlayedAt": "2026-06-10T21:40:00.000Z",
+    "playtimeMinutes": 920,
+    "steamType": "game",
+    "achievementSupport": "available",
+    "earnedCount": 0,
+    "totalCount": 33,
+    "completionPct": 0,
+    "recentAchievements": []
+  },
+  {
+    "id": "ra-3215",
+    "source": "retroachievements",
+    "title": "Final Fantasy",
+    "platform": "PlayStation Portable",
+    "iconUrl": "https://media.retroachievements.org/Images/070784.png",
+    "coverUrl": "https://cdn2.steamgriddb.com/grid/4c112afc9b1ebde9d311cca23e8eb2b8.png",
+    "lastPlayedAt": "2026-06-07T21:40:00.000Z",
+    "achievementSupport": "available",
+    "earnedCount": 1,
+    "totalCount": 57,
+    "completionPct": 2,
+    "recentAchievements": [
+      {
+        "id": "ra-176432",
+        "title": "Lapdogs",
+        "description": "Defeat Garland and rescue the Princess",
+        "earnedAt": "2026-06-07T21:28:00.000Z",
+        "badgeUrl": "https://media.retroachievements.org/Badge/196725.png",
+        "points": 5,
+        "hardcore": true
+      }
+    ]
+  }
+]

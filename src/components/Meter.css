@@ -1,0 +1,35 @@
+.meter {
+  height: 0.5rem;
+  width: 100%;
+  overflow: hidden;
+  border-radius: 9999px;
+  background: var(--color-track);
+}
+
+.meter--compact {
+  height: 0.25rem;
+}
+
+.meter-fill {
+  height: 100%;
+  /* Set per instance by the component. */
+  width: var(--meter-fill, 0%);
+  border-radius: 9999px;
+  background: var(--color-series-1);
+  transition: width 0.4s ease;
+}
+
+/*
+ * A fill and its track are the same shape and differ only in colour, so in
+ * forced-colors mode they merge. Outline the track and paint the fill in the
+ * system's highlight so the ratio survives.
+ */
+@media (forced-colors: active) {
+  .meter {
+    border: 1px solid CanvasText;
+  }
+
+  .meter-fill {
+    background: Highlight;
+  }
+}

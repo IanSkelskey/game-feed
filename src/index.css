@@ -6,68 +6,111 @@
  * Raw palettes are defined once. Semantic tokens reference them and are exposed
  * as Tailwind utilities via @theme (e.g. `text-foreground`, `bg-raised`).
  * Dark mode overrides the same semantic variables — do NOT use `dark:` variants.
+ *
+ * The neutrals carry a slight violet cast so the chrome sits under cover art
+ * without competing with it; accent and series colors were validated for WCAG
+ * contrast and colorblind separation against both surfaces (ratios below).
  */
 
 :root {
-  /* Raw palette (slate/blue neutrals). Replace with your brand palette. */
-  --color-slate-50: #f8fafc;
-  --color-slate-100: #f1f5f9;
-  --color-slate-200: #e2e8f0;
-  --color-slate-300: #cbd5e1;
-  --color-slate-400: #94a3b8;
-  --color-slate-500: #64748b;
-  --color-slate-600: #475569;
-  --color-slate-700: #334155;
-  --color-slate-800: #1e293b;
-  --color-slate-900: #0f172a;
-  --color-slate-950: #020617;
+  /* Raw palette. Neutrals are a violet-tinted gray ramp. */
+  --color-ink-50: #f6f5fa;
+  --color-ink-100: #edebf3;
+  --color-ink-200: #e6e3f0;
+  --color-ink-300: #cbc7dc;
+  --color-ink-400: #8f8ba6;
+  --color-ink-500: #736f8a;
+  --color-ink-600: #56536b;
+  --color-ink-700: #3b384c;
+  --color-ink-800: #262433;
+  --color-ink-900: #191823;
+  --color-ink-950: #0e0d13;
 
-  --color-accent-400: #60a5fa;
-  --color-accent-500: #3b82f6;
-  --color-accent-600: #2563eb;
-  --color-accent-700: #1d4ed8;
+  --color-violet-300: #cbb8ff;
+  --color-violet-400: #b79dfb;
+  --color-violet-500: #8b5cf6;
+  --color-violet-600: #7c3aed;
+  --color-violet-700: #6d28d9;
+  --color-violet-800: #5b21b6;
+
+  --color-amber-500: #c98500;
+  --color-amber-700: #a16207;
 
   /* Semantic tokens — light mode */
-  --color-foreground: var(--color-slate-950);
-  --color-muted: var(--color-slate-600); /* meets WCAG AA on surface/raised */
-  --color-faint: var(--color-slate-400); /* decorative only — NOT accessible text */
-  --color-accent: var(--color-accent-600);
-  --color-accent-hover: var(--color-accent-700);
+  --color-foreground: #14131b; /* 17.0:1 on surface */
+  --color-muted: var(--color-ink-600); /* 6.8:1 on surface, 7.4:1 on raised — AA */
+  --color-faint: var(--color-ink-400); /* 3.0:1 — decorative only, NOT accessible text */
+  --color-accent: var(--color-violet-700); /* 6.6:1 on surface — AA */
+  --color-accent-hover: var(--color-violet-800); /* 9.0:1 on raised */
   /*
    * Foreground for text sitting ON an accent background. Paired with
    * `--color-accent`, never assumed to be white: dark mode lightens the accent
    * so that `text-accent` reads on a dark page, which leaves white text on
-   * `bg-accent` at only 2.5:1. Flipping this token to near-black there keeps
+   * `bg-accent` far below AA. Flipping this token to near-black there keeps
    * accent buttons legible in both modes.
-   * #ffffff on --color-accent-600 → 5.2:1 (AA); on --color-accent-700 → 6.7:1.
+   * #ffffff on --color-accent → 7.1:1 (AA).
    */
   --color-on-accent: #ffffff;
-  --color-error: #b91c1c; /* ~5.9:1 on white — WCAG AA */
-  --color-surface: var(--color-slate-50);
+  --color-error: #b91c1c; /* 6.0:1 on surface — AA */
+  --color-surface: var(--color-ink-50);
   --color-raised: #ffffff;
-  --color-divider: var(--color-slate-200);
+  --color-divider: var(--color-ink-200);
   --color-border-accent: var(--color-accent);
+
+  /*
+   * Chart series. Two magnitude contexts share the dashboard, so each gets its
+   * own hue rather than two steps of one ramp. Validated as a categorical set:
+   * worst-pair ΔE 32.7 under protanopia, 34.1 normal vision (floors 8 / 15),
+   * both ≥ 3:1 on the surface — 5.3:1 and 4.5:1 respectively.
+   */
+  --color-series-1: var(--color-violet-600);
+  --color-series-2: var(--color-amber-700);
+  /* Track behind a meter or bar. Recessive by design; never carries meaning. */
+  --color-track: var(--color-ink-200);
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
-    --color-foreground: var(--color-slate-50);
-    --color-muted: var(--color-slate-300);
-    --color-faint: var(--color-slate-500);
-    --color-accent: var(--color-accent-400);
-    --color-accent-hover: #93c5fd;
-    /* slate-950 on --color-accent-400 → 7.9:1 (AA); on #93c5fd → 11.2:1. */
-    --color-on-accent: var(--color-slate-950);
-    --color-error: #f87171; /* ~6.8:1 on slate-950 — WCAG AA */
-    --color-surface: var(--color-slate-950);
-    --color-raised: var(--color-slate-900);
-    --color-divider: var(--color-slate-800);
+    --color-foreground: #f3f1f9; /* 17.3:1 on surface */
+    --color-muted: #b2aec6; /* 9.0:1 on surface, 8.2:1 on raised — AA */
+    --color-faint: var(--color-ink-500); /* 4.0:1 — still decorative only */
+    --color-accent: var(--color-violet-400); /* 8.5:1 on surface — AA */
+    --color-accent-hover: var(--color-violet-300); /* 9.9:1 on raised */
+    /* --color-ink-950 on --color-accent → 8.5:1 (AA). */
+    --color-on-accent: var(--color-ink-950);
+    --color-error: #f87171; /* 7.0:1 on surface — AA */
+    --color-surface: var(--color-ink-950);
+    --color-raised: var(--color-ink-900);
+    --color-divider: var(--color-ink-800);
+
+    /*
+     * Re-stepped for the dark surface rather than reused: the light steps fall
+     * outside the dark lightness band. Worst-pair ΔE 33.4 protan / 34.7 normal;
+     * 4.6:1 and 6.3:1 against the dark surface.
+     */
+    --color-series-1: var(--color-violet-500);
+    --color-series-2: var(--color-amber-500);
+    --color-track: var(--color-ink-800);
   }
 }
 
 /*
- * Expose semantic tokens as Tailwind color utilities.
- * Usage: text-foreground, bg-raised, border-divider, text-accent-hover, etc.
+ * Display face. Subsetted to latin and self-hosted from `src/assets`, so it
+ * costs no third-party request and Vite rewrites its URL for any base path.
+ * Headings, stat values and nav only — body copy stays in the system sans,
+ * which is more comfortable at paragraph length.
+ */
+@font-face {
+  font-family: "Chakra Petch";
+  src: url("./assets/chakra-petch-600.woff2") format("woff2");
+  font-weight: 600;
+  font-style: normal;
+  font-display: swap;
+}
+
+/*
+ * Expose semantic tokens as Tailwind utilities.
+ * Usage: text-foreground, bg-raised, border-divider, bg-series-1, font-display.
  */
 @theme {
   --color-foreground: var(--color-foreground);
@@ -81,6 +124,11 @@
   --color-raised: var(--color-raised);
   --color-divider: var(--color-divider);
   --color-border-accent: var(--color-border-accent);
+  --color-series-1: var(--color-series-1);
+  --color-series-2: var(--color-series-2);
+  --color-track: var(--color-track);
+
+  --font-display: "Chakra Petch", ui-sans-serif, system-ui, "Segoe UI", Roboto, sans-serif;
 }
 
 /* Base styles */
@@ -104,6 +152,14 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
+}
+
+/*
+ * The arcade note: display type is set slightly tight and, at label sizes,
+ * wide-tracked uppercase — the cabinet-marquee cadence without the pixel font.
+ */
+.font-display {
+  letter-spacing: -0.01em;
 }
 
 /* Visible focus for keyboard users */

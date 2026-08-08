@@ -1,0 +1,77 @@
+.not-found-cabinet {
+  position: relative;
+  overflow: hidden;
+}
+
+/*
+ * A CRT scanline wash. Kept at a very low alpha — it should register as
+ * texture, not as stripes, and it must never reduce the contrast of the text
+ * it sits over. `color-mix` keeps it tied to the foreground token, so it
+ * inverts correctly in dark mode instead of being a hardcoded black.
+ */
+.not-found-scanlines {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    color-mix(in srgb, var(--color-foreground) 4%, transparent) 0 1px,
+    transparent 1px 4px
+  );
+}
+
+/* The title's own glow, in the accent hue rather than an arbitrary neon. */
+.not-found-title {
+  text-shadow: 0 0 24px color-mix(in srgb, var(--color-accent) 35%, transparent);
+}
+
+.not-found-score {
+  font-variant-numeric: tabular-nums;
+}
+
+/*
+ * Blinks four times at 1.2s and stops — under the 5s ceiling WCAG 2.2.2 sets
+ * for blinking content, so it never needs a pause control. The global
+ * `prefers-reduced-motion` rule in index.css collapses it entirely.
+ */
+.not-found-blink {
+  animation: not-found-blink 1.2s steps(1, end) 4;
+}
+
+@keyframes not-found-blink {
+  0%,
+  49% {
+    opacity: 1;
+  }
+  50%,
+  100% {
+    opacity: 0.25;
+  }
+}
+
+.not-found-checkpoint {
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+.not-found-checkpoint:hover,
+.not-found-checkpoint:focus-visible {
+  transform: translateY(-2px);
+  border-color: var(--color-border-accent);
+}
+
+/*
+ * In forced-colors the wash and the glow are noise at best: the system
+ * repaints everything to its own palette, and a gradient overlay can end up
+ * as a solid block over the text.
+ */
+@media (forced-colors: active) {
+  .not-found-scanlines {
+    display: none;
+  }
+
+  .not-found-title {
+    text-shadow: none;
+  }
+}

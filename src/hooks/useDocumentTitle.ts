@@ -1,6 +1,5 @@
 import { useEffect } from "react";
-
-const BASE_TITLE = "React TS Template";
+import { SITE_NAME } from "../config/env";
 
 /**
  * Sets `document.title` for the current route. Pass a section title to prepend,
@@ -10,9 +9,9 @@ const BASE_TITLE = "React TS Template";
  */
 const useDocumentTitle = (title?: string) => {
   useEffect(() => {
-    document.title = title ? `${title} | ${BASE_TITLE}` : BASE_TITLE;
+    document.title = title ? `${title} | ${SITE_NAME}` : SITE_NAME;
     return () => {
-      document.title = BASE_TITLE;
+      document.title = SITE_NAME;
     };
   }, [title]);
 };

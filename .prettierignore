@@ -3,3 +3,9 @@ node_modules
 coverage
 *.min.*
 package-lock.json
+
+# Collector output. Generated files are not hand-formatted, and a collection
+# should never be able to fail `npm run verify`.
+data
+images
+public/sample-games.json

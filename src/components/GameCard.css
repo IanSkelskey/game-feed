@@ -1,0 +1,37 @@
+.game-card {
+  transition:
+    transform 0.18s ease,
+    border-color 0.18s ease;
+}
+
+/*
+ * The lift is the card's only motion. `:focus-within` matters as much as
+ * `:hover` here — a keyboard user tabbing through the grid gets the same
+ * feedback a pointer does.
+ */
+.game-card:hover,
+.game-card:focus-within {
+  transform: translateY(-2px);
+  border-color: var(--color-border-accent);
+}
+
+/*
+ * The heading link's hit area covers the whole card, so the art is clickable
+ * without a second focusable element. The ::after sits above the card's own
+ * background but below nothing else — the card has no other interactive parts.
+ */
+.game-card {
+  position: relative;
+}
+
+.game-card-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+}
+
+.game-card:hover .game-card-link,
+.game-card:focus-within .game-card-link {
+  color: var(--color-accent);
+}
