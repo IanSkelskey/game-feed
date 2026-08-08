@@ -23,6 +23,8 @@ const PATHS = {
   copy: "M9 9h10v11H9zM15 5H5v11",
   check: "M20 6 9 17l-5-5",
   code: "M8 6l-6 6 6 6M16 6l6 6-6 6",
+  menu: "M4 6h16M4 12h16M4 18h16",
+  close: "M6 6l12 12M18 6 6 18",
 } as const;
 
 export type IconName = keyof typeof PATHS;
