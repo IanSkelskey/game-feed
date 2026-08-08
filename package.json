@@ -1,8 +1,9 @@
 {
-  "name": "react-ts-template",
+  "name": "my-game-stats",
   "private": true,
-  "version": "0.1.0",
+  "version": "1.0.0",
   "type": "module",
+  "description": "Collects your Steam and RetroAchievements history into static JSON plus a local art library, and publishes it as a browsable site.",
   "engines": {
     "node": ">=22.22.0"
   },
@@ -10,6 +11,7 @@
     "dev": "vite",
     "build": "tsc -b && vite build",
     "preview": "vite preview",
+    "collect": "tsx collector/collect.ts",
     "lint": "eslint .",
     "typecheck": "tsc -b --noEmit",
     "format": "prettier --write .",
@@ -35,6 +37,7 @@
     "globals": "^15.13.0",
     "prettier": "^3.8.3",
     "tailwindcss": "^4.2.4",
+    "tsx": "^4.21.0",
     "typescript": "~5.9.0",
     "typescript-eslint": "^8.15.0",
     "vite": "^8.0.9"
