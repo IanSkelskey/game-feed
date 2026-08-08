@@ -11,6 +11,22 @@ export const APP_VERSION = "1.0.0";
 export const SITE_NAME = "My Game Stats";
 
 /**
+ * Footer attribution — the only place a person's name appears in the UI, so a
+ * fork changes it here and nowhere else.
+ */
+export const AUTHOR_NAME = "Ian Skelskey";
+export const AUTHOR_URL = "https://github.com/IanSkelskey";
+
+/**
+ * The template this front end was scaffolded from. Credited in the footer and
+ * on the data page: the conventions this app is written to — semantic colour
+ * tokens, the accessibility baseline, the verify pipeline — are its, not this
+ * repository's, and anyone reading the code deserves the pointer.
+ */
+export const SCAFFOLD_NAME = "react-ts-starter";
+export const SCAFFOLD_URL = "https://github.com/IanSkelskey/react-ts-starter";
+
+/**
  * Vite's public base path — `/` locally, `/<repo>/` for a GitHub Pages project
  * page. Always ends with a slash, so it concatenates directly with an asset
  * path (`${BASE_PATH}data/games.json`).

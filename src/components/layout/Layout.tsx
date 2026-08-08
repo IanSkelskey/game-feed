@@ -1,6 +1,14 @@
 import type { PropsWithChildren } from "react";
 import { Link, NavLink } from "react-router";
-import { APP_VERSION, BASE_PATH, SITE_NAME } from "../../config/env";
+import {
+  APP_VERSION,
+  AUTHOR_NAME,
+  AUTHOR_URL,
+  BASE_PATH,
+  SCAFFOLD_NAME,
+  SCAFFOLD_URL,
+  SITE_NAME,
+} from "../../config/env";
 import useLibrary from "../../hooks/useLibrary";
 import { formatDateTime, formatRelative } from "../../utils/format";
 
@@ -79,20 +87,47 @@ const Layout = ({ children }: PropsWithChildren) => {
       <main className="mx-auto w-full max-w-6xl flex-1 px-6 py-10">{children}</main>
 
       <footer className="border-t border-divider bg-raised">
-        <div className="mx-auto max-w-6xl px-6 py-4 text-center text-sm text-muted">
-          <p>Collected from Steam and RetroAchievements. Art belongs to its publishers.</p>
-          {collectedAt && (
-            <p className="mt-1">
-              Data current as of{" "}
-              {/* The exact timestamp on hover; the relative one is what anybody
-                  actually wants to know. */}
-              <time dateTime={collectedAt} title={formatDateTime(collectedAt)}>
-                {formatRelative(collectedAt)}
-              </time>
-            </p>
-          )}
+        <div className="mx-auto max-w-6xl px-6 py-5 text-center text-sm text-muted">
+          <p>
+            Made with{" "}
+            {/*
+              `role="img"` rather than a bare `aria-label`: an aria-label on a
+              plain span is ignored by several screen readers, so the character
+              would be announced as "black heart suit" or skipped entirely.
+            */}
+            <span role="img" aria-label="love" className="text-accent">
+              ♥
+            </span>{" "}
+            by{" "}
+            <a href={AUTHOR_URL} className="font-medium text-accent hover:text-accent-hover">
+              {AUTHOR_NAME}
+            </a>
+            . &copy; {new Date().getFullYear()}
+          </p>
+
+          <p className="mt-1.5 text-xs">
+            Collected from Steam and RetroAchievements
+            {collectedAt && (
+              <>
+                , current as of{" "}
+                {/* The exact timestamp on hover; the relative one is what
+                    anybody actually wants to know. */}
+                <time dateTime={collectedAt} title={formatDateTime(collectedAt)}>
+                  {formatRelative(collectedAt)}
+                </time>
+              </>
+            )}
+            . Art belongs to its publishers.
+          </p>
+
           {/* A version string is readable content, not chrome — `text-muted`, not `text-faint`. */}
-          <p className="mt-1 text-xs text-muted">v{APP_VERSION}</p>
+          <p className="mt-1 text-xs text-muted">
+            Scaffolded from{" "}
+            <a href={SCAFFOLD_URL} className="hover:text-accent">
+              {SCAFFOLD_NAME}
+            </a>{" "}
+            <span aria-hidden>·</span> v{APP_VERSION}
+          </p>
         </div>
       </footer>
     </div>

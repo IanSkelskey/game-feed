@@ -2,13 +2,13 @@
 
 <!--
   Badge URLs are repository-specific — GitHub has no relative form for them.
-  After using this template, replace `IanSkelskey/my-game-stats` in the three
+  After using this template, replace `IanSkelskey/game-feed` in the three
   lines below with your own owner/repository.
 -->
 
-[![CI](https://github.com/IanSkelskey/my-game-stats/actions/workflows/ci.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/ci.yml)
-[![Collect and publish](https://github.com/IanSkelskey/my-game-stats/actions/workflows/collect.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/collect.yml)
-[![Deploy](https://github.com/IanSkelskey/my-game-stats/actions/workflows/deploy.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/deploy.yml)
+[![CI](https://github.com/IanSkelskey/game-feed/actions/workflows/ci.yml/badge.svg)](https://github.com/IanSkelskey/game-feed/actions/workflows/ci.yml)
+[![Collect and publish](https://github.com/IanSkelskey/game-feed/actions/workflows/collect.yml/badge.svg)](https://github.com/IanSkelskey/game-feed/actions/workflows/collect.yml)
+[![Deploy](https://github.com/IanSkelskey/game-feed/actions/workflows/deploy.yml/badge.svg)](https://github.com/IanSkelskey/game-feed/actions/workflows/deploy.yml)
 
 A template for publishing your own gaming history. It collects what you have
 been playing from **Steam** and **RetroAchievements**, keeps its own copy of the
@@ -268,6 +268,14 @@ Front-end conventions are documented in
 color tokens (never raw palette classes, never `dark:` variants), the icon
 choke point, accessibility rules, and the quality gates. Run `npm run verify`
 before committing.
+
+Most of those conventions are not this repository's own: the front end was
+scaffolded from
+[react-ts-starter](https://github.com/IanSkelskey/react-ts-starter), which is
+where the token system, the accessibility baseline, the lazy-route shell and the
+`prettier → lint → typecheck → build` pipeline come from. Start there if you
+want the same foundation without the game data; start here if you want the game
+data too.
 
 ## License
 
