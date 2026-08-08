@@ -3,6 +3,11 @@ name: Deploy to GitHub Pages
 on:
   push:
     branches: [main]
+    # The collect workflow commits data and deploys the result itself; a second
+    # deploy on those commits would republish the identical build.
+    paths-ignore:
+      - "data/**"
+      - "images/**"
   workflow_dispatch:
 
 # Allow one concurrent deployment; skip runs in progress but queue the latest.
@@ -25,13 +30,25 @@ jobs:
           node-version-file: .nvmrc
           cache: npm
       - run: npm ci
-      # For project-page deploys (user.github.io/<repo>/) the build must use
-      # `/${repo}/` as the base path. `${{ github.event.repository.name }}`
-      # resolves to the repo name at runtime so this works without edits.
+
+      # A project page is served from /<repo>/, a user page from the domain
+      # root. Deriving it means neither has anything to hand-edit.
+      - name: Resolve base path
+        id: base
+        run: |
+          repo="${{ github.event.repository.name }}"
+          owner="${{ github.repository_owner }}"
+          if [ "${repo,,}" = "${owner,,}.github.io" ]; then
+            echo "path=/" >> "$GITHUB_OUTPUT"
+          else
+            echo "path=/$repo/" >> "$GITHUB_OUTPUT"
+          fi
+
       - name: Build
         env:
-          BASE_PATH: /${{ github.event.repository.name }}/
+          BASE_PATH: ${{ steps.base.outputs.path }}
         run: npm run build
+
       - uses: actions/configure-pages@v5
       - uses: actions/upload-pages-artifact@v3
         with:

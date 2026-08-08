@@ -1,125 +1,276 @@
-# React TS Template
+# My Game Stats
 
-Opinionated starting point for React + TypeScript + Vite + Tailwind v4 projects. Distilled from the shared patterns in production apps — biased toward accessibility, strict types, and a small dependency surface.
+<!--
+  Badge URLs are repository-specific — GitHub has no relative form for them.
+  After using this template, replace `IanSkelskey/my-game-stats` in the three
+  lines below with your own owner/repository.
+-->
 
-## What's inside
+[![CI](https://github.com/IanSkelskey/my-game-stats/actions/workflows/ci.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/ci.yml)
+[![Collect and publish](https://github.com/IanSkelskey/my-game-stats/actions/workflows/collect.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/collect.yml)
+[![Deploy](https://github.com/IanSkelskey/my-game-stats/actions/workflows/deploy.yml/badge.svg)](https://github.com/IanSkelskey/my-game-stats/actions/workflows/deploy.yml)
 
-- **React 19 + TypeScript 5 + Vite 8** with strict `tsconfig`.
-- **Tailwind CSS v4** via `@tailwindcss/vite`. Tokens live in `@theme` in `src/index.css`.
-- **Semantic color tokens** (`text-foreground`, `bg-raised`, `text-accent`, etc.) with automatic dark mode via `prefers-color-scheme` — no `dark:` variants.
-- **Global a11y baselines**: `prefers-reduced-motion` and `forced-colors` overrides; visible `:focus-visible` ring.
-- **React Router v7** with **route-level code splitting** (`React.lazy` + shared `<Suspense>` fallback).
-- **`ErrorBoundary`** with optional `resetKey` for route-reset behavior.
-- **`useDocumentTitle`** hook — the only approved way to set `document.title`.
-- **`fetchWithTimeout`** utility with `AbortController` + external-signal chaining.
-- **`src/config/env.ts`** as the single place to read `VITE_*` variables.
-- **Single `src/types/index.ts`** — no per-domain type files.
-- **Verify pipeline** — `prettier-check → lint → typecheck → build`, wired into GitHub Actions.
-- **GitHub Pages deploy workflow** — publishes `dist/` on every push to `main`.
-- **Documented conventions** in [.github/copilot-instructions.md](.github/copilot-instructions.md).
+A template for publishing your own gaming history. It collects what you have
+been playing from **Steam** and **RetroAchievements**, keeps its own copy of the
+cover art and achievement badges, and publishes the lot as a browsable site
+**and** a static JSON feed any other app can read.
 
-Every one of the above is exercised at least once by the demo app, so nothing ships as dead code. The `/demo` route is the showcase — see [Removing the demo](#removing-the-demo).
+Everything runs on GitHub: a scheduled Action collects, commits, and deploys.
+There is no server, no database, and no key to hand out.
 
-## Scripts
+```
+┌──────────────┐   npm run collect   ┌───────────────┐   npm run build   ┌────────────┐
+│ Steam APIs   │────────────────────▶│ data/         │──────────────────▶│ GitHub     │
+│ RetroAchieve │                     │ images/       │                   │ Pages      │
+│ SteamGridDB  │                     │ (committed)   │                   │ site+feed  │
+└──────────────┘                     └───────────────┘                   └────────────┘
+```
 
-| Script                   | Purpose                                                            |
-| ------------------------ | ------------------------------------------------------------------ |
-| `npm run dev`            | Start the Vite dev server.                                         |
-| `npm run build`          | Type-check and produce a production build.                         |
-| `npm run preview`        | Preview the production build locally. **Audit this, not `dev`.**   |
-| `npm run lint`           | Run ESLint.                                                        |
-| `npm run typecheck`      | Run `tsc -b --noEmit`.                                             |
-| `npm run format`         | Write Prettier formatting.                                         |
-| `npm run prettier-check` | Verify Prettier formatting (used in CI).                           |
-| `npm run verify`         | Prettier-check → lint → typecheck → build. Must pass before merge. |
+## Quick start
 
-## Getting started
+1. **Use this template** to make your own repository.
+2. **Settings → Pages → Source: GitHub Actions.**
+3. **Settings → Secrets and variables → Actions**, and add secrets for whichever
+   sources you want. Each source is independent — set only Steam, only
+   RetroAchievements, or both.
+
+   | Secret                                                      | Needed for           | Where it comes from                                                                    |
+   | ----------------------------------------------------------- | -------------------- | -------------------------------------------------------------------------------------- |
+   | `STEAM_API_KEY`                                             | Steam                | [steamcommunity.com/dev/apikey](https://steamcommunity.com/dev/apikey)                 |
+   | `STEAM_ID`                                                  | Steam                | Your 64-bit SteamID, or the vanity name from your profile URL — both work              |
+   | `RETRO_ACHIEVEMENTS_USERNAME`, `RETRO_ACHIEVEMENTS_API_KEY` | RetroAchievements    | [retroachievements.org/settings](https://retroachievements.org/settings) → Web API Key |
+   | `STEAM_GRID_DB_API_KEY`                                     | Cover art (optional) | [SteamGridDB preferences](https://www.steamgriddb.com/profile/preferences/api)         |
+
+4. **Actions → Collect and publish → Run workflow.** After it finishes your site
+   is live at `https://<user>.github.io/<repo>/`, with the feed at
+   `…/data/games.json`.
+
+Two gotchas, both Steam's:
+
+- Your profile **and** its "Game details" must both be Public. With a valid key
+  but a private profile the API returns success with zero games.
+- Without `STEAM_GRID_DB_API_KEY` everything still collects; emulated games just
+  have no cover art. Steam games use Steam's own capsule art either way.
+
+## The sample data
+
+`public/sample-games.json` is a small **sample library** the app falls back to
+when nothing has been collected yet, so a fresh fork renders a real-looking site
+on its first `npm run dev`. Its image URLs point at the original CDNs rather
+than at this repository, and a banner across the top says it is sample data.
+
+The collector never writes that file — it writes `data/games.json` — so the
+fallback survives however many times you collect. As soon as a collection
+exists it wins, the banner disappears, and nothing needs deleting.
+
+### A note on image URLs
+
+The feed stores **absolute** image URLs, so another app can render
+`game.coverUrl` with no rewriting. Those URLs name your published site, which
+does not exist yet on a fresh fork — so the app rewrites anything under its own
+`images/` onto the current origin ([src/utils/art.ts](src/utils/art.ts)). Covers
+therefore appear locally the moment you collect, long before the first deploy.
+
+## Running it locally
 
 ```bash
-# 1. Use this template on GitHub (or clone and re-init git)
 npm install
-
-# 2. Copy env template and fill in any VITE_* variables
-cp .env.example .env.local
-
-# 3. Start developing
-npm run dev
+npm run dev          # the site, on the sample data
 ```
 
-## Project structure
+To collect for real, credentials come from your environment — no `.env` file,
+because these are real secrets and `VITE_*` variables end up in the client
+bundle. On Windows the collector also reads them straight from the registry, so
+a terminal opened before you set them still works without a restart:
 
-```
-src/
-├── App.tsx                  # Route declarations + Suspense boundary
-├── main.tsx                 # Entry: StrictMode + ErrorBoundary + BrowserRouter
-├── index.css                # Tailwind @theme tokens + base styles + a11y globals
-├── components/
-│   ├── ErrorBoundary.tsx    # Route-aware error boundary
-│   ├── RouteFallback.tsx    # <Suspense> fallback
-│   └── layout/
-│       └── Layout.tsx       # Header/Main/Footer shell
-├── config/
-│   └── env.ts               # VITE_* reader + build-time constants
-├── hooks/
-│   └── useDocumentTitle.ts  # Per-route <title>
-├── pages/
-│   ├── HomePage.tsx
-│   ├── DemoPage.tsx         # Showcase — delete when you fork
-│   └── NotFound.tsx
-├── types/
-│   └── index.ts             # All shared types
-└── utils/
-    └── fetchWithTimeout.ts  # fetch() + AbortController timeout
+```powershell
+setx STEAM_API_KEY               "..."
+setx STEAM_ID                    "..."
+setx RETRO_ACHIEVEMENTS_USERNAME "..."
+setx RETRO_ACHIEVEMENTS_API_KEY  "..."
+setx STEAM_GRID_DB_API_KEY       "..."
+
+npm run collect
 ```
 
-## Auditing performance
+macOS and Linux: `export` the same names, or prefix a single run.
 
-Run Lighthouse against `npm run preview` (port 4173), never `npm run dev`. The dev server ships unminified modules, the HMR client, and react-refresh — roughly 5 MB over 22 requests, versus ~82 kB over 6 for the real build. Auditing `dev` measures Vite's development ergonomics, not your site:
+## Consuming the feed
 
-```bash
-npm run build && npm run preview   # then audit http://localhost:4173/
+The site is a front end over a file it also publishes, so anything on screen is
+available to another app:
+
+```ts
+const games = await fetch("https://<user>.github.io/<repo>/data/games.json").then((response) =>
+  response.json(),
+);
 ```
 
-## Removing the demo
+GitHub Pages serves `Access-Control-Allow-Origin: *`, so this works from a
+browser. `raw.githubusercontent.com` does not — use the Pages URL.
 
-The `/demo` route exists so every built-in renders at least once — the template ships no dead code. To strip it:
+| Path                             | What it is                                                  |
+| -------------------------------- | ----------------------------------------------------------- |
+| `data/games.json`                | `PlayedGame[]`, both sources merged, newest first           |
+| `data/meta.json`                 | `FeedMeta` — when the data last changed, and how many games |
+| `data/history/<YYYY-MM-DD>.json` | A dated snapshot, written when the data changed             |
+| `images/…`                       | The art library                                             |
 
-1. Delete `src/pages/DemoPage.tsx` and `public/demo-data.json`.
-2. Remove the `DemoPage` import, its `<Route>`, the `Demo` `<NavLink>` in `Layout.tsx`, and the closing paragraph in `HomePage.tsx`.
-3. Drop `DemoStatus` from `src/types/index.ts`.
+[`src/types/index.ts`](src/types/index.ts) is the contract. It has no imports,
+so it can be copied into a consuming project verbatim — and the collector
+imports the same file, so the published shape cannot drift from the declared
+one. Image fields (`iconUrl`, `coverUrl`, `badgeUrl`) are absolute URLs onto
+your own site, so `<img src={game.coverUrl}>` works with no rewriting.
 
-Keep the route-level `<ErrorBoundary resetKey={location.pathname}>` in `App.tsx` — it is part of the shell, not the demo.
+The `/data` route on the running site says all of this too, with the URLs
+already filled in for wherever it is deployed.
+
+## The image library
+
+```
+images/{covers,icons,badges}/{steam,retroachievements}/<id>.<ext>
+```
+
+Append-only, on two rules:
+
+- **Never re-downloaded.** A file already on disk is never fetched again, so a
+  daily run costs one request per genuinely new image.
+- **Never overwritten.** Art collected once stays forever, even after the game
+  drops out of the recently-played window. A published URL always points at the
+  same bytes, so it is safe to cache hard.
+
+Extensions vary by source (RetroAchievements serves PNG, Steam JPG), which is
+why the JSON carries full URLs rather than ids to interpolate.
+
+## Upstream APIs
+
+Everything the collector depends on, and which version of it. Nothing here is
+vendored or wrapped in a client library — these are plain `fetch` calls, so a
+breaking change upstream shows up as a failed collection rather than a silent
+one.
+
+### Steam Web API — `api.steampowered.com`
+
+Needs `STEAM_API_KEY`. Each endpoint carries its version in the path, so a
+future revision arrives as a new path rather than a changed response.
+
+| Endpoint                                | Version | Provides                                                       |
+| --------------------------------------- | ------- | -------------------------------------------------------------- |
+| `ISteamUser/ResolveVanityURL`           | **v1**  | Vanity name → 64-bit SteamID, so `STEAM_ID` accepts either     |
+| `IPlayerService/GetOwnedGames`          | **v1**  | Titles, icon hashes, playtime, last-played timestamps          |
+| `ISteamUserStats/GetPlayerAchievements` | **v1**  | Which achievements this account has unlocked                   |
+| `ISteamUserStats/GetSchemaForGame`      | **v2**  | The achievements a game _defines_ — names, descriptions, icons |
+| `IStoreBrowseService/GetItems`          | **v1**  | Library-capsule art paths, batched 25 appids at a time         |
+
+`GetSchemaForGame` is the authority on whether a game has achievements at all.
+`GetPlayerAchievements` cannot answer that — it returns 400 both for a game with
+no achievements and for one this account has never generated stats for, which is
+why `achievementSupport` is derived from the schema instead.
+
+### Unversioned dependencies
+
+These have no version in the path, so they can change shape without warning.
+They are the parts most likely to need attention someday:
+
+| Dependency                                                                                   | Provides                           | Notes                                                                                            |
+| -------------------------------------------------------------------------------------------- | ---------------------------------- | ------------------------------------------------------------------------------------------------ |
+| `store.steampowered.com/api/appdetails`                                                      | Steam product type (game vs. tool) | Undocumented storefront endpoint, no key. Failure is tolerated — a game is kept rather than lost |
+| `retroachievements.org/API/API_*.php`                                                        | Recently played, per-game progress | RetroAchievements' Web API is unversioned PHP endpoints                                          |
+| `media.retroachievements.org`, `media.steampowered.com`, `shared.cloudflare.steamstatic.com` | Icons, badges, capsule art         | Image hosts. Fetched once and cached locally, so an outage costs new art only                    |
+
+### SteamGridDB — `steamgriddb.com/api/v2`
+
+**v2**, optional (`STEAM_GRID_DB_API_KEY`). Supplies 600×900 poster art for
+emulated games and for the few Steam titles that publish no capsule. Without the
+key everything still collects; those games simply have no cover.
+
+## How it is put together
+
+```
+collector/            # Node, run by tsx — writes data/ and images/
+├── collect.ts        # entry point: run each source, merge, write
+├── config.ts         # limits, and the published base URL
+├── lib/              # http, the art library, SteamGridDB, Windows env
+└── sources/          # steam.ts, retroachievements.ts
+src/                  # React app — reads data/games.json
+├── pages/            # Overview, Library, Game, Data
+├── components/       # cards, charts, meters, the icon choke point
+├── types/index.ts    # the shared contract (collector + app)
+└── utils/            # formatting, filtering, aggregation
+data/, images/        # the collector's output — committed, and published
+```
+
+`data/` and `images/` sit at the repo root rather than in `public/` because they
+are output, not source: the collect workflow replaces them wholesale, and they
+are meaningful on their own as a feed. The `collected-data` plugin in
+[vite.config.ts](vite.config.ts) serves them in dev and copies them into
+`dist/` at build, so both halves ship as one site.
+
+### Scripts
+
+| Script              | Purpose                                                              |
+| ------------------- | -------------------------------------------------------------------- |
+| `npm run dev`       | Start the Vite dev server.                                           |
+| `npm run collect`   | Fetch from every configured source; write `data/` and `images/`.     |
+| `npm run build`     | Type-check and produce a production build.                           |
+| `npm run preview`   | Preview the production build locally. **Audit this, not `dev`.**     |
+| `npm run lint`      | Run ESLint.                                                          |
+| `npm run typecheck` | Run `tsc -b --noEmit` across the app, the collector, and the config. |
+| `npm run verify`    | Prettier-check → lint → typecheck → build. Must pass before merge.   |
+
+### Workflows
+
+| Workflow      | When                                  | What                                                 |
+| ------------- | ------------------------------------- | ---------------------------------------------------- |
+| `collect.yml` | Daily at 07:23 UTC, or on demand      | Collect → commit and tag if changed → build → deploy |
+| `deploy.yml`  | Push to `main` (ignoring data/images) | Build → deploy                                       |
+| `ci.yml`      | Push and PR                           | `npm run verify`                                     |
+
+### Why the template never collects
+
+`collect.yml` guards its job with
+
+```yaml
+if: >-
+  github.repository != 'IanSkelskey/game-feed' &&
+  github.event.repository.is_template != true
+```
+
+The template has no library to collect, so an unguarded daily cron would post a
+failing run every morning. A copy made with **Use this template** has a
+different `github.repository`, so it starts collecting with nothing to edit.
+
+Worth knowing: GitHub disables scheduled workflows in **forks**, but a template
+copy is not a fork — its schedule runs from day one. That is why the guard is
+explicit rather than left to GitHub.
+
+If you keep this repository as a template _and_ want it to collect your own
+library, delete the `if:` block. If you would rather not touch the workflow at
+all, **Actions → Collect and publish → ⋯ → Disable workflow** does the same
+thing from the UI, though that setting lives on the repository rather than in
+the files a copy inherits.
+
+Both deploy jobs derive `BASE_PATH` from the repository name — `/repo/` for a
+project page, `/` for a `<user>.github.io` user page — so neither needs editing.
+The collector derives the matching absolute URL for image links the same way.
+For a custom domain, set `SITE_BASE` and `BASE_PATH` explicitly.
+
+Deep links survive a hard refresh via the
+[rafgraph SPA redirect trick](https://github.com/rafgraph/spa-github-pages):
+`dist/404.html` is generated at build time with the resolved base baked in, and
+a small inline script in [index.html](index.html) decodes the path before React
+boots.
 
 ## Conventions
 
-Full conventions are documented in [.github/copilot-instructions.md](.github/copilot-instructions.md). The highlights:
-
-- All colors use semantic tokens. Never use raw palette classes (`text-red-600`).
-- All env reads go through `src/config/env.ts`.
-- Props types are local to each component file; no shared prop-type modules.
-- State machines use typed string unions, not booleans.
-- Run `npm run verify` before committing.
-
-## Deploying to GitHub Pages
-
-The template ships with [`.github/workflows/deploy.yml`](.github/workflows/deploy.yml), which builds and publishes `dist/` on every push to `main`.
-
-1. In your repo, go to **Settings → Pages** and set **Source** to **GitHub Actions**.
-2. Push to `main`. The workflow builds with `BASE_PATH=/<repo>/` so assets resolve correctly for a project page (e.g. `https://<user>.github.io/<repo>/`).
-3. Deep links (e.g. a hard refresh on `/demo`) survive via the [rafgraph SPA redirect trick](https://github.com/rafgraph/spa-github-pages):
-   - `dist/404.html` is generated at build time by the `spa-github-pages-404` plugin in [vite.config.ts](vite.config.ts), with the resolved `base` baked into it. GitHub serves it for any unknown path; it encodes the requested path into a query string and bounces to `index.html`, which IS served with a 200.
-   - A small script inlined in the `<head>` of [index.html](index.html) decodes that query string before React boots. Both halves are inline, so neither costs a request.
-
-This adapts to the base path automatically — there is nothing to hand-edit for a project page, a user page, or a custom domain.
-
-> **Why generated, not `public/404.html`?** Vite copies `public/` verbatim and never rewrites paths inside it. A `<script src="/scripts/…">` there resolves against the domain root, so on a project page served from `/<repo>/` it 404s and the redirect silently dies.
-
-**User/organization page** (`<user>.github.io`) or **custom domain**: override `BASE_PATH` to `/` in the workflow, or edit the default in [vite.config.ts](vite.config.ts). Nothing else changes.
-
-**Project page** (`<user>.github.io/<repo>/`): nothing to configure — the workflow derives `BASE_PATH` from the repo name.
-
-`BrowserRouter` uses `BASE_PATH` from [src/config/env.ts](src/config/env.ts) as its `basename`, so routing works under any base path without further changes.
+Front-end conventions are documented in
+[.github/copilot-instructions.md](.github/copilot-instructions.md) — semantic
+color tokens (never raw palette classes, never `dark:` variants), the icon
+choke point, accessibility rules, and the quality gates. Run `npm run verify`
+before committing.
 
 ## License
 
-MIT. Replace this section when you fork the template.
+MIT — see [LICENSE](LICENSE). Game titles, cover art, and achievement badges
+belong to their respective publishers; this repository only caches them for
+personal display.
