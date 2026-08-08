@@ -23,7 +23,7 @@ import type { SiteConfig } from "./src/types";
 
 export const siteConfig: SiteConfig = {
   site: {
-    name: "My Game Stats",
+    name: "My Game Feed",
     author: {
       name: "Ian Skelskey",
       url: "https://github.com/IanSkelskey",

@@ -1,0 +1,53 @@
+/*
+ * highlight.js emits bare `hljs-*` classes with no styling of its own — these
+ * map them onto the same semantic tokens as the rest of the app (see
+ * `src/index.css`) instead of pulling in one of its prebuilt themes, so code
+ * blocks stay in sync with light/dark mode and never introduce an unvalidated
+ * color.
+ */
+
+.hljs-comment,
+.hljs-quote {
+  color: var(--color-muted);
+  font-style: italic;
+}
+
+.hljs-keyword,
+.hljs-selector-tag,
+.hljs-literal,
+.hljs-section,
+.hljs-link {
+  color: var(--color-accent);
+}
+
+.hljs-string,
+.hljs-doctag,
+.hljs-regexp {
+  color: var(--color-series-2);
+}
+
+.hljs-number,
+.hljs-built_in,
+.hljs-builtin-name,
+.hljs-type {
+  color: var(--color-series-1);
+}
+
+.hljs-attr,
+.hljs-attribute,
+.hljs-tag,
+.hljs-name {
+  color: var(--color-foreground);
+}
+
+.hljs-title,
+.hljs-title.class_,
+.hljs-title.function_ {
+  color: var(--color-foreground);
+  font-weight: 600;
+}
+
+.hljs-punctuation,
+.hljs-meta {
+  color: var(--color-muted);
+}

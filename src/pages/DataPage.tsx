@@ -194,7 +194,7 @@ const DataPage = () => {
         <p className="mb-4 mt-1 text-sm text-muted">
           There is no client library and no pagination — it is one array.
         </p>
-        <CodeBlock code={FETCH_EXAMPLE} label="the fetch example" />
+        <CodeBlock code={FETCH_EXAMPLE} label="the fetch example" language="typescript" />
       </section>
 
       <section aria-labelledby="shape-heading">
@@ -205,7 +205,7 @@ const DataPage = () => {
           Copy <code>src/types/index.ts</code> into your project — it has no imports, and it is the
           same file the collector writes against, so the two cannot drift.
         </p>
-        <CodeBlock code={TYPE_EXAMPLE} label="the PlayedGame type" />
+        <CodeBlock code={TYPE_EXAMPLE} label="the PlayedGame type" language="typescript" />
 
         {sample && (
           <div className="mt-4">
@@ -219,6 +219,7 @@ const DataPage = () => {
                 2,
               )}
               label="the sample record"
+              language="json"
             />
             <p className="mt-2 text-xs text-muted">
               Trimmed to one achievement for length; the feed carries up to four per game.
