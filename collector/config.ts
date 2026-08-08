@@ -1,25 +1,21 @@
 /**
  * @file collector/config.ts
- * @description Every knob worth turning, in one place.
+ * @description What the collector reads its settings from, plus the one piece
+ * of configuration it works out for itself.
+ *
+ * The knobs live in `site.config.ts` at the repo root, shared with the front
+ * end. They are re-exported here so the source files can go on importing plain
+ * constants, and so this stays the only file in `collector/` that knows where
+ * settings come from.
  */
 
 import { execFileSync } from "node:child_process";
+import { siteConfig } from "../site.config";
 
-/**
- * How many games to keep per source. The front end paginates, so this is the
- * size of the library rather than the size of any one screen. Both APIs cap a
- * single page at 50.
- */
-export const GAME_LIMIT = 50;
-
-/**
- * How many recently played games to inspect per source before the final limit.
- * Steam games without achievements are retained.
- */
-export const FETCH_COUNT = 50;
-
-/** How many of each game's newest achievements to keep. */
-export const ACHIEVEMENTS_PER_GAME = 4;
+export const GAME_LIMIT = siteConfig.collect.gameLimit;
+export const FETCH_COUNT = siteConfig.collect.fetchCount;
+export const ACHIEVEMENTS_PER_GAME = siteConfig.collect.achievementsPerGame;
+export const COLLECT_PLAYTIME = siteConfig.collect.playtime;
 
 /**
  * Turns `owner/repo` into the GitHub Pages URL it publishes to. A repository

@@ -114,6 +114,57 @@ export interface FeedMeta {
 }
 
 /* ------------------------------------------------------------------------- *
+ * Settings. Shaped here, filled in by `site.config.ts` at the repo root.
+ * ------------------------------------------------------------------------- */
+
+/**
+ * Everything a fork is expected to change, in one file both halves import.
+ *
+ * The split matters: `collect` decides what ends up in the published feed, and
+ * `display` decides what this site renders from it. Turning something off in
+ * `display` hides it here while leaving it available to anything else reading
+ * the feed; turning it off in `collect` means it was never gathered at all.
+ * Reach for `collect` when the answer is "that is nobody's business", and
+ * `display` when it is "not on my front page".
+ */
+export interface SiteConfig {
+  site: {
+    /** Page titles, the header, the footer. */
+    name: string;
+    author: { name: string; url: string };
+    /**
+     * Credit for the template this front end came from. Omit the key entirely
+     * to drop the credit from the footer and the data page.
+     */
+    scaffold?: { name: string; url: string };
+  };
+
+  collect: {
+    /** How many games to keep per source. Both APIs cap a page at 50. */
+    gameLimit: number;
+    /** How many recently played games to inspect before the final limit. */
+    fetchCount: number;
+    /** How many of each game's newest achievements to keep. */
+    achievementsPerGame: number;
+    /**
+     * Publish Steam playtime. `false` omits `playtimeMinutes` from the feed
+     * entirely — no consumer of it, this site included, can show what was
+     * never collected.
+     */
+    playtime: boolean;
+  };
+
+  display: {
+    /**
+     * Show playtime: the figure on each card and detail page, the Time played
+     * tile, the Most played chart, and the "Most played" sort order. Has no
+     * effect on what the feed contains.
+     */
+    playtime: boolean;
+  };
+}
+
+/* ------------------------------------------------------------------------- *
  * Front-end view models. Nothing below is part of the published feed.
  * ------------------------------------------------------------------------- */
 

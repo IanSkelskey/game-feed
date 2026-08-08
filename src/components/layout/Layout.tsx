@@ -5,8 +5,7 @@ import {
   AUTHOR_NAME,
   AUTHOR_URL,
   BASE_PATH,
-  SCAFFOLD_NAME,
-  SCAFFOLD_URL,
+  SCAFFOLD,
   SITE_NAME,
 } from "../../config/env";
 import useLibrary from "../../hooks/useLibrary";
@@ -122,11 +121,16 @@ const Layout = ({ children }: PropsWithChildren) => {
 
           {/* A version string is readable content, not chrome — `text-muted`, not `text-faint`. */}
           <p className="mt-1 text-xs text-muted">
-            Scaffolded from{" "}
-            <a href={SCAFFOLD_URL} className="hover:text-accent">
-              {SCAFFOLD_NAME}
-            </a>{" "}
-            <span aria-hidden>·</span> v{APP_VERSION}
+            {SCAFFOLD && (
+              <>
+                Scaffolded from{" "}
+                <a href={SCAFFOLD.url} className="hover:text-accent">
+                  {SCAFFOLD.name}
+                </a>{" "}
+                <span aria-hidden>·</span>{" "}
+              </>
+            )}
+            v{APP_VERSION}
           </p>
         </div>
       </footer>

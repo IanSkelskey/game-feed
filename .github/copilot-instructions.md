@@ -163,9 +163,18 @@ The only acceptable inline style. Used for anything a stylesheet cannot know:
 
 ---
 
+## Configuration
+
+`site.config.ts` at the repo root holds everything a fork is expected to change. Both halves import it.
+
+- **`collect.*` decides what enters the feed; `display.*` decides what this site renders from it.** Do not conflate them. Hiding something in `display` must leave the feed untouched, and a `collect` option must remove the field rather than zero it — `playtimeMinutes: 0` is a claim the game was never played.
+- Components read settings from `src/config/env.ts`, never from `site.config.ts` directly. The collector reads them from `collector/config.ts`. Those two files are the only ones that know where settings come from.
+- A `display` option must remove **every** surface of the thing, not just the obvious one — including any sort order or filter keyed on it, and any layout that assumed its presence (column counts, chart pairings). A control that reorders by a hidden value is a bug.
+- Add the field to `SiteConfig` in `src/types/index.ts` first, so a typo fails `npm run typecheck`.
+
 ## Types
 
-All shared types live in `src/types/index.ts` — no per-domain type files. Feed types come first, front-end view models after the divider.
+All shared types live in `src/types/index.ts` — no per-domain type files. Feed types come first, settings next, front-end view models after the divider.
 
 ---
 

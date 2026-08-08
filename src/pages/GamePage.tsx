@@ -4,6 +4,7 @@ import Icon from "../components/Icon";
 import LibraryStatus from "../components/LibraryStatus";
 import Meter from "../components/Meter";
 import SourceTag from "../components/SourceTag";
+import { SHOW_PLAYTIME } from "../config/env";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import useLibrary from "../hooks/useLibrary";
 import { artUrl } from "../utils/art";
@@ -82,7 +83,7 @@ const GamePage = () => {
               <dd className="text-sm text-muted">{formatDate(game.lastPlayedAt)}</dd>
             </div>
 
-            {game.playtimeMinutes !== undefined && (
+            {SHOW_PLAYTIME && game.playtimeMinutes !== undefined && (
               <div>
                 <dt className="text-xs font-medium uppercase tracking-widest text-muted">
                   Playtime

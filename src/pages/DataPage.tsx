@@ -2,7 +2,7 @@ import CodeBlock from "../components/CodeBlock";
 import Icon from "../components/Icon";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import useLibrary from "../hooks/useLibrary";
-import { DATA_URL, SCAFFOLD_NAME, SCAFFOLD_URL } from "../config/env";
+import { DATA_URL, SCAFFOLD } from "../config/env";
 
 /** The feed's absolute address, which is what another app has to request. */
 const FEED_URL = new URL(DATA_URL, window.location.href).href;
@@ -333,16 +333,23 @@ const DataPage = () => {
         </h2>
         <p className="mt-1 text-sm text-muted">
           Two halves in one repository. The collector is Node run by <code>tsx</code>, and writes
-          the files above. The front end is React 19, Vite and Tailwind v4, scaffolded from{" "}
-          <a
-            href={SCAFFOLD_URL}
-            className="inline-flex items-center gap-1 font-medium text-accent hover:text-accent-hover"
-          >
-            {SCAFFOLD_NAME}
-            <Icon name="external" className="h-3.5 w-3.5" />
-          </a>{" "}
-          — which is where the semantic colour tokens, the accessibility baseline and the verify
-          pipeline come from, if you want the same starting point without the game data.
+          the files above. The front end is React 19, Vite and Tailwind v4
+          {SCAFFOLD ? (
+            <>
+              , scaffolded from{" "}
+              <a
+                href={SCAFFOLD.url}
+                className="inline-flex items-center gap-1 font-medium text-accent hover:text-accent-hover"
+              >
+                {SCAFFOLD.name}
+                <Icon name="external" className="h-3.5 w-3.5" />
+              </a>{" "}
+              — which is where the semantic colour tokens, the accessibility baseline and the verify
+              pipeline come from, if you want the same starting point without the game data.
+            </>
+          ) : (
+            "."
+          )}
         </p>
         <p className="mt-3 text-sm text-muted">
           Both halves import <code>src/types/index.ts</code>, so the shape written by the collector

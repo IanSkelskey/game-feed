@@ -1,30 +1,37 @@
 /**
- * Build-time configuration. All `VITE_*` env vars are inlined by Vite.
- * Add new entries here rather than reading `import.meta.env` across the app.
+ * Build-time configuration: `VITE_*` env vars, which Vite inlines, plus the
+ * settings the app renders from.
+ *
+ * Preferences are not defined here — they come from `site.config.ts` at the
+ * repo root, which the collector reads too. This file is the app's single
+ * import path for both, so components never reach past it into either
+ * `import.meta.env` or the config file.
  */
+import { siteConfig } from "../../site.config";
+
 export const APP_VERSION = "1.0.0";
 
-/**
- * What this deployment calls itself: page titles, the header, the footer.
- * Renaming a fork is this one line.
- */
-export const SITE_NAME = "My Game Stats";
+/** What this deployment calls itself: page titles, the header, the footer. */
+export const SITE_NAME = siteConfig.site.name;
+
+/** Footer attribution. */
+export const AUTHOR_NAME = siteConfig.site.author.name;
+export const AUTHOR_URL = siteConfig.site.author.url;
 
 /**
- * Footer attribution — the only place a person's name appears in the UI, so a
- * fork changes it here and nowhere else.
+ * The template this front end was scaffolded from — the semantic colour
+ * tokens, the accessibility baseline and the verify pipeline are its work, and
+ * anyone reading the code deserves the pointer. Undefined when a fork has
+ * removed the credit, in which case nothing renders in its place.
  */
-export const AUTHOR_NAME = "Ian Skelskey";
-export const AUTHOR_URL = "https://github.com/IanSkelskey";
+export const SCAFFOLD = siteConfig.site.scaffold;
 
 /**
- * The template this front end was scaffolded from. Credited in the footer and
- * on the data page: the conventions this app is written to — semantic colour
- * tokens, the accessibility baseline, the verify pipeline — are its, not this
- * repository's, and anyone reading the code deserves the pointer.
+ * Whether the app renders playtime at all. Separate from whether playtime was
+ * collected: a feed can carry `playtimeMinutes` that this site chooses not to
+ * show, and the components handle its absence either way.
  */
-export const SCAFFOLD_NAME = "react-ts-starter";
-export const SCAFFOLD_URL = "https://github.com/IanSkelskey/react-ts-starter";
+export const SHOW_PLAYTIME = siteConfig.display.playtime;
 
 /**
  * Vite's public base path — `/` locally, `/<repo>/` for a GitHub Pages project

@@ -5,6 +5,7 @@ import GameCard from "../components/GameCard";
 import LibraryStatus from "../components/LibraryStatus";
 import Meter from "../components/Meter";
 import StatTile from "../components/StatTile";
+import { SHOW_PLAYTIME } from "../config/env";
 import useDocumentTitle from "../hooks/useDocumentTitle";
 import type { PlayedGame } from "../types";
 import { formatNumber, formatPlaytime, formatRelative } from "../utils/format";
@@ -52,19 +53,30 @@ const HomePage = () => {
           {summary.lastPlayedAt && ` Last session ${formatRelative(summary.lastPlayedAt)}.`}
         </p>
 
-        <dl className="mt-6 grid gap-4 sm:grid-cols-2 lg:grid-cols-4">
+        {/*
+          The column count follows the tile count: dropping the playtime tile
+          from a four-column grid would leave a hole at the end of the row
+          rather than three evenly spread tiles.
+        */}
+        <dl
+          className={`mt-6 grid gap-4 sm:grid-cols-2 ${
+            SHOW_PLAYTIME ? "lg:grid-cols-4" : "lg:grid-cols-3"
+          }`}
+        >
           <StatTile
             icon="grid"
             label="Games"
             value={formatNumber(summary.gameCount)}
             detail={`${steamCount} on Steam · ${summary.gameCount - steamCount} emulated`}
           />
-          <StatTile
-            icon="clock"
-            label="Time played"
-            value={formatPlaytime(summary.totalMinutes)}
-            detail="Steam reports playtime; RetroAchievements does not"
-          />
+          {SHOW_PLAYTIME && (
+            <StatTile
+              icon="clock"
+              label="Time played"
+              value={formatPlaytime(summary.totalMinutes)}
+              detail="Steam reports playtime; RetroAchievements does not"
+            />
+          )}
           <StatTile
             icon="trophy"
             label="Achievements"
@@ -80,25 +92,28 @@ const HomePage = () => {
         </dl>
       </section>
 
-      <div className="grid gap-6 lg:grid-cols-2">
-        <section
-          aria-labelledby="playtime-heading"
-          className="rounded-lg border border-divider bg-raised p-5"
-        >
-          <h2 id="playtime-heading" className="font-display text-lg text-foreground">
-            Most played
-          </h2>
-          <p className="mb-4 mt-1 text-sm text-muted">
-            Hours recorded by Steam. Emulated games are absent by nature — no emulator reports
-            playtime back.
-          </p>
-          <BarList
-            rows={summary.playtimeLeaders}
-            format={formatPlaytime}
-            series={1}
-            labelledBy="playtime-heading"
-          />
-        </section>
+      {/* One chart left over shouldn't sit in a half-width column. */}
+      <div className={`grid gap-6 ${SHOW_PLAYTIME ? "lg:grid-cols-2" : ""}`}>
+        {SHOW_PLAYTIME && (
+          <section
+            aria-labelledby="playtime-heading"
+            className="rounded-lg border border-divider bg-raised p-5"
+          >
+            <h2 id="playtime-heading" className="font-display text-lg text-foreground">
+              Most played
+            </h2>
+            <p className="mb-4 mt-1 text-sm text-muted">
+              Hours recorded by Steam. Emulated games are absent by nature — no emulator reports
+              playtime back.
+            </p>
+            <BarList
+              rows={summary.playtimeLeaders}
+              format={formatPlaytime}
+              series={1}
+              labelledBy="playtime-heading"
+            />
+          </section>
+        )}
 
         <section
           aria-labelledby="platform-heading"
@@ -113,7 +128,10 @@ const HomePage = () => {
           <BarList
             rows={summary.platformCounts}
             format={(value) => `${value} ${value === 1 ? "game" : "games"}`}
-            series={2}
+            // The second hue exists to separate two magnitude charts sharing a
+            // screen. Alone, this one takes the first slot — a lone chart in
+            // the "other" colour reads as though something is missing.
+            series={SHOW_PLAYTIME ? 2 : 1}
             labelledBy="platform-heading"
           />
         </section>

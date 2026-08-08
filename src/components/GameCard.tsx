@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { SHOW_PLAYTIME } from "../config/env";
 import type { PlayedGame } from "../types";
 import { achievementSupportOf, formatPlaytime, formatRelative } from "../utils/format";
 import CoverArt from "./CoverArt";
@@ -39,7 +40,7 @@ const GameCard = ({ game, priority = false }: GameCardProps) => {
       </p>
 
       <p className="mt-2 text-xs text-muted">
-        {game.playtimeMinutes ? `${formatPlaytime(game.playtimeMinutes)} · ` : ""}
+        {SHOW_PLAYTIME && game.playtimeMinutes ? `${formatPlaytime(game.playtimeMinutes)} · ` : ""}
         {formatRelative(game.lastPlayedAt)}
       </p>
 

@@ -1,3 +1,4 @@
+import { SHOW_PLAYTIME } from "../config/env";
 import type { PlayedGame, SortKey, SourceFilter } from "../types";
 
 /**
@@ -26,10 +27,22 @@ export const SORTS: Record<
   },
 };
 
-export const SORT_KEYS = Object.keys(SORTS) as SortKey[];
+/**
+ * The orders actually offered. "Most played" disappears with the playtime
+ * setting — a sort whose column is hidden everywhere else would reorder the
+ * grid by an invisible value.
+ */
+export const SORT_KEYS = (Object.keys(SORTS) as SortKey[]).filter(
+  (key) => key !== "playtime" || SHOW_PLAYTIME,
+);
 
+/**
+ * Checked against the offered list rather than the full one, so a link to
+ * `?sort=playtime` saved before playtime was hidden falls back to the default
+ * instead of silently applying a sort with no visible basis.
+ */
 export const isSortKey = (value: string | null): value is SortKey =>
-  value !== null && value in SORTS;
+  value !== null && SORT_KEYS.includes(value as SortKey);
 
 export const isSourceFilter = (value: string | null): value is SourceFilter =>
   value === "all" || value === "steam" || value === "retroachievements";

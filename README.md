@@ -52,6 +52,50 @@ Two gotchas, both Steam's:
 - Without `STEAM_GRID_DB_API_KEY` everything still collects; emulated games just
   have no cover art. Steam games use Steam's own capsule art either way.
 
+## Configuration
+
+[`site.config.ts`](site.config.ts) at the repo root is the one file you are
+expected to edit. Both halves import it, so there is no second place for the
+collector and the front end to disagree.
+
+```ts
+export const siteConfig: SiteConfig = {
+  site: { name: "My Game Stats", author: { … }, scaffold: { … } },
+  collect: { gameLimit: 50, fetchCount: 50, achievementsPerGame: 4, playtime: true },
+  display: { playtime: true },
+};
+```
+
+The two sections answer different questions:
+
+| Section   | Question                                  | Effect                                                   |
+| --------- | ----------------------------------------- | -------------------------------------------------------- |
+| `collect` | What should end up in the published feed? | Changes `data/games.json` on the next run — for everyone |
+| `display` | What should this site show from it?       | Changes this site only; the feed still carries the field |
+
+`collect.playtime: false` omits `playtimeMinutes` from the feed entirely, so
+nothing reading it can show what was never gathered. `display.playtime: false`
+keeps collecting but hides it here: the figure on each card and detail page, the
+Time played tile, the Most played chart, and the "Most played" sort — which is
+also dropped from the sort control, so a saved `?sort=playtime` link falls back
+to the default instead of reordering the grid by an invisible value.
+
+Reach for `collect` when the answer is "that is nobody's business", and
+`display` when it is "not on my front page".
+
+### Adding an option
+
+1. Add the field to `SiteConfig` in [src/types/index.ts](src/types/index.ts),
+   with a comment saying what it affects.
+2. Give it a value in `site.config.ts`.
+3. Surface it — `src/config/env.ts` for anything the app renders,
+   `collector/config.ts` for anything the collector does. Components read
+   `src/config/env.ts` and never the config file directly, so there is one
+   import path to grep.
+
+The type is what makes this safe: an unknown key or a wrong value type fails
+`npm run typecheck` rather than being silently ignored.
+
 ## The sample data
 
 `public/sample-games.json` is a small **sample library** the app falls back to

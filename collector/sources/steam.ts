@@ -16,7 +16,7 @@
  *   GetSchemaForGame      → maps those apinames to titles and icons
  */
 
-import { ACHIEVEMENTS_PER_GAME, FETCH_COUNT, GAME_LIMIT } from "../config";
+import { ACHIEVEMENTS_PER_GAME, COLLECT_PLAYTIME, FETCH_COUNT, GAME_LIMIT } from "../config";
 import { ApiError, createJsonClient } from "../lib/http";
 import type { ImageStore } from "../lib/images";
 import type { GridClient } from "../lib/steamgriddb";
@@ -389,7 +389,10 @@ export const collectSteam = async (
       lastPlayedAt: game.rtime_last_played
         ? toIso(game.rtime_last_played)
         : (progress.recent[0]?.earnedAt ?? "1970-01-01T00:00:00.000Z"),
-      playtimeMinutes: game.playtime_forever ?? 0,
+      // Omitted rather than zeroed when playtime is off: `playtimeMinutes: 0`
+      // is a claim that the game was never played, which is a different and
+      // false statement. Absent is what the type already means by "unknown".
+      ...(COLLECT_PLAYTIME ? { playtimeMinutes: game.playtime_forever ?? 0 } : {}),
       steamType,
       achievementSupport: progress.support,
       earnedCount: progress.earnedCount,
