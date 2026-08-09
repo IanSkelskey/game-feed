@@ -1,3 +1,5 @@
+![Game Feed hero image](public/hero.webp)
+
 # My Game Stats
 
 <!--
