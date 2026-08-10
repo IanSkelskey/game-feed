@@ -1,6 +1,6 @@
 ![Game Feed hero image](public/hero.webp)
 
-# My Game Stats
+# My Game Feed
 
 <!--
   Badge URLs are repository-specific — GitHub has no relative form for them.
@@ -20,12 +20,10 @@ cover art and achievement badges, and publishes the lot as a browsable site
 Everything runs on GitHub: a scheduled Action collects, commits, and deploys.
 There is no server, no database, and no key to hand out.
 
-```
-┌──────────────┐   npm run collect   ┌───────────────┐   npm run build   ┌────────────┐
-│ Steam APIs   │────────────────────▶│ data/         │──────────────────▶│ GitHub     │
-│ RetroAchieve │                     │ images/       │                   │ Pages      │
-│ SteamGridDB  │                     │ (committed)   │                   │ site+feed  │
-└──────────────┘                     └───────────────┘                   └────────────┘
+```mermaid
+graph LR
+    A["Steam APIs<br/>RetroAchieve<br/>SteamGridDB"] -->|npm run collect| B["data/<br/>images/<br/>committed"]
+    B -->|npm run build| C["GitHub Pages<br/>site+feed"]
 ```
 
 ## Quick start
