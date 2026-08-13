@@ -118,6 +118,31 @@ export interface FeedMeta {
  * ------------------------------------------------------------------------- */
 
 /**
+ * A block of the Overview page. `display.overview.sections` lists these in the
+ * order they should render, and a key left out of that list is not rendered at
+ * all — one setting covers both arranging and hiding.
+ *
+ * - `stats` — the summary tiles: games, time played, achievements, platforms.
+ * - `charts` — Most played and Where you play, side by side.
+ * - `completion` — the progress meters for the games nearest 100%.
+ * - `recent` — the strip of recently played cards.
+ */
+export type OverviewSection = "stats" | "charts" | "completion" | "recent";
+
+/**
+ * Wording for one headed block, for forks that want their own voice.
+ *
+ * Both fields are optional and each falls back to the built-in copy on its own,
+ * so overriding a heading does not oblige you to restate its description. An
+ * empty `description` is not the same as an omitted one: `""` removes the
+ * sentence, while leaving the key out keeps the default.
+ */
+export interface SectionText {
+  heading?: string;
+  description?: string;
+}
+
+/**
  * Everything a fork is expected to change, in one file both halves import.
  *
  * The split matters: `collect` decides what ends up in the published feed, and
@@ -134,7 +159,7 @@ export interface SiteConfig {
     author: { name: string; url: string };
     /**
      * Credit for the template this front end came from. Omit the key entirely
-     * to drop the credit from the footer and the data page.
+     * to drop the credit from the footer and the docs page.
      */
     scaffold?: { name: string; url: string };
   };
@@ -161,6 +186,62 @@ export interface SiteConfig {
      * effect on what the feed contains.
      */
     playtime: boolean;
+
+    /**
+     * Publish the /docs page — the documentation of the feed, its shape and
+     * how to run your own. `false` unregisters the route (so /docs lands on
+     * the 404 page), drops it from the nav, and rewords the few places that
+     * linked to it. Defaults to `true` when omitted.
+     *
+     * This hides the *documentation*, not the data: `data/games.json` is still
+     * published and still fetchable by anyone who knows the URL, because this
+     * site itself reads it from there. If the feed is what you want private,
+     * that is a repository-visibility question, not a display one.
+     */
+    docsPage?: boolean;
+
+    /** How the Overview page is arranged. Every field has a default. */
+    overview?: {
+      /**
+       * Which blocks the page shows, in render order. Omitting the key renders
+       * all four in their usual order; listing a subset drops the rest.
+       * Duplicates are ignored — a section renders at most once.
+       */
+      sections?: OverviewSection[];
+      /** Cards in the "Recently played" strip. Defaults to 6, one full row. */
+      recentCount?: number;
+    };
+  };
+
+  /**
+   * Copy overrides for the Overview page. Optional in full and optional field
+   * by field — anything left out keeps the wording that ships with the
+   * template, so this section stays empty until you disagree with something.
+   *
+   * Headings here are what the page renders *and* what its landmarks are
+   * labelled by, so a renamed section stays correctly announced.
+   */
+  text?: {
+    /**
+     * The page's `<h1>` and the paragraph under it. The default paragraph
+     * links the feed on the docs page; set `description` to take that link
+     * away, or hide the docs page and the default drops the link itself.
+     */
+    overview?: SectionText;
+    /** The "Most played" chart. Not rendered at all when playtime is off. */
+    playtimeChart?: SectionText;
+    /** The "Where you play" chart. */
+    platformChart?: SectionText;
+    /**
+     * The summary tiles. They carry no visible heading, so `heading` is used
+     * as the block's accessible name only — it still matters, because the
+     * tiles can sit anywhere on the page.
+     */
+    stats?: SectionText;
+    /** The completion meters. */
+    completion?: SectionText;
+    /** The recently played strip. */
+    recent?: SectionText;
   };
 }
 

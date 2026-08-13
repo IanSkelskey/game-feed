@@ -1,23 +1,34 @@
-import { useMemo } from "react";
+import { Fragment, useMemo, type ReactNode } from "react";
 import { Link } from "react-router";
 import BarList from "../components/BarList";
 import GameCard from "../components/GameCard";
 import LibraryStatus from "../components/LibraryStatus";
 import Meter from "../components/Meter";
 import StatTile from "../components/StatTile";
-import { SHOW_PLAYTIME } from "../config/env";
+import {
+  OVERVIEW_SECTIONS,
+  RECENT_COUNT,
+  SHOW_DOCS_PAGE,
+  SHOW_PLAYTIME,
+  TEXT,
+} from "../config/env";
 import useDocumentTitle from "../hooks/useDocumentTitle";
-import type { PlayedGame } from "../types";
+import type { OverviewSection, PlayedGame } from "../types";
 import { formatNumber, formatPlaytime, formatRelative } from "../utils/format";
 import { SORTS } from "../utils/library";
 import { summarize } from "../utils/stats";
 import useLibrary from "../hooks/useLibrary";
 
-/** How many cards the "recently played" strip shows before deferring to the library. */
-const RECENT_COUNT = 6;
-
 /** Stable identity, so the memos below don't recompute while the feed loads. */
 const NO_GAMES: PlayedGame[] = [];
+
+/** A section's optional sentence, rendered only when there is one to render. */
+const Description = ({ text, id }: { text: string; id?: string }) =>
+  text ? (
+    <p id={id} className="mb-4 mt-1 text-sm text-muted">
+      {text}
+    </p>
+  ) : null;
 
 const HomePage = () => {
   useDocumentTitle();
@@ -38,28 +49,50 @@ const HomePage = () => {
 
   const steamCount = games.filter((game) => game.source === "steam").length;
 
-  return (
-    <div className="flex flex-col gap-10">
-      <section aria-labelledby="overview-heading">
-        <h1 id="overview-heading" className="font-display text-3xl text-foreground">
-          Overview
-        </h1>
-        <p className="mt-2 max-w-prose text-muted">
-          Everything below is derived from one static file this site publishes —{" "}
-          <Link to="/data" className="font-medium text-accent hover:text-accent-hover">
-            the same feed
-          </Link>{" "}
-          any other app can read.
-          {summary.lastPlayedAt && ` Last session ${formatRelative(summary.lastPlayedAt)}.`}
-        </p>
+  /**
+   * The default intro, which the config can replace with a plain sentence.
+   *
+   * Two defaults rather than one: the paragraph's whole point is the link to
+   * the feed's documentation, so with that page hidden it makes the same claim
+   * without pointing at a 404.
+   */
+  const intro =
+    TEXT.overview.description ??
+    (SHOW_DOCS_PAGE ? (
+      <>
+        Everything below is derived from one static file this site publishes —{" "}
+        <Link to="/docs" className="font-medium text-accent hover:text-accent-hover">
+          the same feed
+        </Link>{" "}
+        any other app can read.
+      </>
+    ) : (
+      <>Everything below is derived from one static file this site publishes.</>
+    ));
 
+  /**
+   * Every block the page can render, keyed by its name in the config.
+   *
+   * Built as a record and then indexed by `OVERVIEW_SECTIONS`, so one setting
+   * decides both order and presence; a section that has nothing to say still
+   * decides that for itself by resolving to `null`.
+   */
+  const sections: Record<OverviewSection, ReactNode> = {
+    stats: (
+      /*
+        The tiles carry no visible heading, and they can be configured to sit
+        anywhere on the page — so the landmark is named rather than left to be
+        identified by whatever happens to precede it.
+      */
+      <section aria-label={TEXT.stats.heading}>
+        <Description text={TEXT.stats.description} />
         {/*
           The column count follows the tile count: dropping the playtime tile
           from a four-column grid would leave a hole at the end of the row
           rather than three evenly spread tiles.
         */}
         <dl
-          className={`mt-6 grid gap-4 sm:grid-cols-2 ${
+          className={`grid gap-4 sm:grid-cols-2 ${
             SHOW_PLAYTIME ? "lg:grid-cols-4" : "lg:grid-cols-3"
           }`}
         >
@@ -91,8 +124,10 @@ const HomePage = () => {
           />
         </dl>
       </section>
+    ),
 
-      {/* One chart left over shouldn't sit in a half-width column. */}
+    // One chart left over shouldn't sit in a half-width column.
+    charts: (
       <div className={`grid gap-6 ${SHOW_PLAYTIME ? "lg:grid-cols-2" : ""}`}>
         {SHOW_PLAYTIME && (
           <section
@@ -100,12 +135,9 @@ const HomePage = () => {
             className="rounded-lg border border-divider bg-raised p-5"
           >
             <h2 id="playtime-heading" className="font-display text-lg text-foreground">
-              Most played
+              {TEXT.playtimeChart.heading}
             </h2>
-            <p className="mb-4 mt-1 text-sm text-muted">
-              Hours recorded by Steam. Emulated games are absent by nature — no emulator reports
-              playtime back.
-            </p>
+            <Description text={TEXT.playtimeChart.description} />
             <BarList
               rows={summary.playtimeLeaders}
               format={formatPlaytime}
@@ -120,11 +152,9 @@ const HomePage = () => {
           className="rounded-lg border border-divider bg-raised p-5"
         >
           <h2 id="platform-heading" className="font-display text-lg text-foreground">
-            Where you play
+            {TEXT.platformChart.heading}
           </h2>
-          <p className="mb-4 mt-1 text-sm text-muted">
-            Games in the library per platform, counting each console separately.
-          </p>
+          <Description text={TEXT.platformChart.description} />
           <BarList
             rows={summary.platformCounts}
             format={(value) => `${value} ${value === 1 ? "game" : "games"}`}
@@ -136,12 +166,15 @@ const HomePage = () => {
           />
         </section>
       </div>
+    ),
 
-      {summary.completionLeaders.length > 0 && (
+    completion:
+      summary.completionLeaders.length > 0 ? (
         <section aria-labelledby="completion-heading">
           <h2 id="completion-heading" className="font-display text-lg text-foreground">
-            Closest to complete
+            {TEXT.completion.heading}
           </h2>
+          <Description text={TEXT.completion.description} />
           <ul className="mt-4 grid gap-4 sm:grid-cols-2">
             {summary.completionLeaders.map((game) => (
               <li key={game.id} className="rounded-lg border border-divider bg-raised p-4">
@@ -166,17 +199,19 @@ const HomePage = () => {
             ))}
           </ul>
         </section>
-      )}
+      ) : null,
 
+    recent: (
       <section aria-labelledby="recent-heading">
         <div className="flex items-baseline justify-between gap-4">
           <h2 id="recent-heading" className="font-display text-lg text-foreground">
-            Recently played
+            {TEXT.recent.heading}
           </h2>
           <Link to="/library" className="text-sm font-medium text-accent hover:text-accent-hover">
             All {formatNumber(summary.gameCount)} games
           </Link>
         </div>
+        <Description text={TEXT.recent.description} />
         <ul className="mt-4 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-6">
           {recent.map((game) => (
             <li key={game.id}>
@@ -185,6 +220,28 @@ const HomePage = () => {
           ))}
         </ul>
       </section>
+    ),
+  };
+
+  return (
+    <div className="flex flex-col gap-10">
+      {/*
+        The page's own heading, not one of the arrangeable sections: whatever
+        order the blocks below are in, an `h1` still has to come first.
+      */}
+      <header>
+        <h1 className="font-display text-3xl text-foreground">{TEXT.overview.heading}</h1>
+        {intro && (
+          <p className="mt-2 max-w-prose text-muted">
+            {intro}
+            {summary.lastPlayedAt && ` Last session ${formatRelative(summary.lastPlayedAt)}.`}
+          </p>
+        )}
+      </header>
+
+      {OVERVIEW_SECTIONS.map((name) => (
+        <Fragment key={name}>{sections[name]}</Fragment>
+      ))}
     </div>
   );
 };

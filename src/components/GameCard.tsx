@@ -36,7 +36,7 @@ const GameCard = ({ game, priority = false }: GameCardProps) => {
       </h3>
 
       <p className="mt-2">
-        <SourceTag source={game.source} platform={game.platform} />
+        <SourceTag source={game.source} platform={game.platform} variant="plain" />
       </p>
 
       <p className="mt-2 text-xs text-muted">

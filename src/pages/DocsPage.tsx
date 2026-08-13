@@ -112,8 +112,8 @@ const ENV_VARS: { name: string; source: string; required: string }[] = [
   },
 ];
 
-const DataPage = () => {
-  useDocumentTitle("Data");
+const DocsPage = () => {
+  useDocumentTitle("Docs");
 
   const library = useLibrary();
   // A real record from this deployment beats a hand-written example — it can
@@ -361,4 +361,4 @@ const DataPage = () => {
   );
 };
 
-export default DataPage;
+export default DocsPage;

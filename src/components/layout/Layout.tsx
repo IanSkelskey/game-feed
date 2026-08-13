@@ -6,6 +6,7 @@ import {
   AUTHOR_URL,
   BASE_PATH,
   SCAFFOLD,
+  SHOW_DOCS_PAGE,
   SITE_NAME,
 } from "../../config/env";
 import useLibrary from "../../hooks/useLibrary";
@@ -113,11 +114,13 @@ const Layout = ({ children }: PropsWithChildren) => {
                     Library
                   </NavLink>
                 </li>
-                <li>
-                  <NavLink to="/data" className={navLinkClass} onClick={closeMenu}>
-                    Data
-                  </NavLink>
-                </li>
+                {SHOW_DOCS_PAGE && (
+                  <li>
+                    <NavLink to="/docs" className={navLinkClass} onClick={closeMenu}>
+                      Docs
+                    </NavLink>
+                  </li>
+                )}
               </ul>
             </nav>
           </div>
@@ -126,12 +129,19 @@ const Layout = ({ children }: PropsWithChildren) => {
 
       {showingSample && (
         <div className="border-b border-divider bg-accent/10">
+          {/* The pointer to /docs is the only part of this banner that can go
+              missing, so the sentence ends at the command when it does. */}
           <p className="mx-auto max-w-6xl px-6 py-2.5 text-center text-sm text-muted">
             <span className="font-medium text-foreground">Sample data.</span> Nothing has been
-            collected into this deployment yet — run <code>npm run collect</code>, or see{" "}
-            <Link to="/data" className="font-medium text-accent hover:text-accent-hover">
-              how to set it up
-            </Link>
+            collected into this deployment yet — run <code>npm run collect</code>
+            {SHOW_DOCS_PAGE && (
+              <>
+                , or see{" "}
+                <Link to="/docs" className="font-medium text-accent hover:text-accent-hover">
+                  how to set it up
+                </Link>
+              </>
+            )}
             .
           </p>
         </div>

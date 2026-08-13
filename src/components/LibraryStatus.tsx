@@ -1,4 +1,5 @@
 import { Link } from "react-router";
+import { SHOW_DOCS_PAGE } from "../config/env";
 import type { LibraryState } from "../types";
 import CodeBlock from "./CodeBlock";
 
@@ -37,12 +38,20 @@ const LibraryStatus = ({ state }: LibraryStatusProps) => {
         <p role="alert" className="mt-2 text-sm text-error">
           {state.message}
         </p>
+        {/* Both branches of this page point at /docs for the detail, so both
+            have to stand on their own when a fork has hidden it. */}
         <p className="mt-3 text-sm text-muted">
           The feed is read from <code>data/games.json</code> on this site. If you are running
-          locally, check that a collection has been committed — see the{" "}
-          <Link to="/data" className="font-medium text-accent hover:text-accent-hover">
-            data page
-          </Link>
+          locally, check that a collection has been committed
+          {SHOW_DOCS_PAGE && (
+            <>
+              {" "}
+              — see the{" "}
+              <Link to="/docs" className="font-medium text-accent hover:text-accent-hover">
+                docs
+              </Link>
+            </>
+          )}
           .
         </p>
       </div>
@@ -61,11 +70,20 @@ const LibraryStatus = ({ state }: LibraryStatusProps) => {
       </div>
       <p className="mt-4 text-sm text-muted">
         RetroAchievements works the same way, with <code>RETRO_ACHIEVEMENTS_USERNAME</code> and{" "}
-        <code>RETRO_ACHIEVEMENTS_API_KEY</code>. The{" "}
-        <Link to="/data" className="font-medium text-accent hover:text-accent-hover">
-          data page
-        </Link>{" "}
-        lists every variable and what it unlocks.
+        <code>RETRO_ACHIEVEMENTS_API_KEY</code>.{" "}
+        {SHOW_DOCS_PAGE ? (
+          <>
+            The{" "}
+            <Link to="/docs" className="font-medium text-accent hover:text-accent-hover">
+              docs
+            </Link>{" "}
+            list every variable and what it unlocks.
+          </>
+        ) : (
+          // Not `.env.example` — that file carries only the VITE_ variables;
+          // the credentials are deliberately absent from it.
+          <>The repository&apos;s README lists every variable and what it unlocks.</>
+        )}
       </p>
     </div>
   );

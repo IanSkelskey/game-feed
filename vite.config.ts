@@ -55,9 +55,10 @@ const collectedData = (): Plugin => {
         const top = path.split("/")[0] ?? "";
         if (!COLLECTED_DIRS.includes(top)) return next();
 
-        // Only paths naming a servable file are ours. `/data` is also an app
-        // route, and claiming the whole prefix would answer the docs page with
-        // a 404 instead of letting the SPA render it.
+        // Only paths naming a servable file are ours. Claiming a whole prefix
+        // would answer anything under it — including a bare `/data`, which a
+        // reader may well try — with this middleware's JSON 404 rather than
+        // letting the SPA render its own not-found page.
         if (!CONTENT_TYPES[extname(path).toLowerCase()]) return next();
 
         // `normalize` collapses any `..` segments; the prefix check then

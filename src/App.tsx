@@ -3,12 +3,13 @@ import { Route, Routes, useLocation } from "react-router";
 import ErrorBoundary from "./components/ErrorBoundary";
 import Layout from "./components/layout/Layout";
 import RouteFallback from "./components/RouteFallback";
+import { SHOW_DOCS_PAGE } from "./config/env";
 import HomePage from "./pages/HomePage";
 
 // Lazy-load non-critical routes. Keep the home/landing route eager.
 const LibraryPage = lazy(() => import("./pages/LibraryPage"));
 const GamePage = lazy(() => import("./pages/GamePage"));
-const DataPage = lazy(() => import("./pages/DataPage"));
+const DocsPage = lazy(() => import("./pages/DocsPage"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const App = () => {
@@ -28,7 +29,13 @@ const App = () => {
             <Route path="/" element={<HomePage />} />
             <Route path="/library" element={<LibraryPage />} />
             <Route path="/game/:id" element={<GamePage />} />
-            <Route path="/data" element={<DataPage />} />
+            {/*
+              Unregistered rather than redirected when the page is off: /docs
+              then falls through to the catch-all and answers 404, which is the
+              truth. The lazy chunk is never requested either — nothing imports
+              it at runtime, so the code goes unfetched rather than unreachable.
+            */}
+            {SHOW_DOCS_PAGE && <Route path="/docs" element={<DocsPage />} />}
             <Route path="*" element={<NotFound />} />
           </Routes>
         </Suspense>
