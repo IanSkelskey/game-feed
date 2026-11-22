@@ -57,9 +57,13 @@ const slug = (id: string) =>
     .slice(0, 120)
     .toLowerCase() || "unnamed";
 
-/** The URL's extension wins; it survives CDNs answering octet-stream. */
-const extensionFor = (url: string, contentType: string | null) => {
-  const fromUrl = extname(basename(new URL(url).pathname)).toLowerCase();
+/**
+ * The URL's extension wins; it survives CDNs answering octet-stream. A source
+ * that is a repo-relative path rather than a URL is used as it is.
+ */
+const extensionFor = (source: string, contentType: string | null) => {
+  const pathname = /^[a-z][a-z0-9+.-]*:\/\//i.test(source) ? new URL(source).pathname : source;
+  const fromUrl = extname(basename(pathname)).toLowerCase();
   if (KNOWN.has(fromUrl)) {
     return fromUrl === ".jpeg" ? ".jpg" : fromUrl;
   }
@@ -87,18 +91,18 @@ export const createImageStore = async () => {
   let skipped = 0;
   let failed = 0;
 
-  /** Downloads if absent. Returns the published URL, or undefined on failure. */
-  const store = async (
+  /**
+   * The shared half of `store` and `storeFile`: skip what is held, otherwise
+   * fetch the bytes and record them. `origin` is what the manifest credits.
+   */
+  const put = async (
     kind: ImageKind,
     source: GameSource,
     id: string,
-    url: string | undefined,
-    options: { quiet?: boolean } = {},
+    origin: string,
+    fetchBytes: () => Promise<{ body: Buffer; contentType: string | null } | null>,
+    options: { quiet?: boolean },
   ): Promise<string | undefined> => {
-    if (!url) {
-      return undefined;
-    }
-
     const stem = `images/${kind}/${source}/${id.split("/").map(slug).join("/")}`;
     const held = byStem.get(stem);
 
@@ -108,22 +112,22 @@ export const createImageStore = async () => {
       return `${SITE_BASE}/${held}`;
     }
 
-    const result = await download(url);
+    const result = await fetchBytes();
     if (!result) {
       if (!options.quiet) {
         failed += 1;
-        console.warn(`  ~ could not download ${url}`);
+        console.warn(`  ~ could not get ${origin}`);
       }
       return undefined;
     }
 
-    const path = `${stem}${extensionFor(url, result.contentType)}`;
+    const path = `${stem}${extensionFor(origin, result.contentType)}`;
     const absolute = resolve(ROOT, path);
     await mkdir(dirname(absolute), { recursive: true });
     await writeFile(absolute, result.body);
 
     manifest[path] = {
-      sourceUrl: url,
+      sourceUrl: origin,
       fetchedAt: manifest[path]?.fetchedAt ?? now,
       bytes: result.body.byteLength,
     };
@@ -132,6 +136,39 @@ export const createImageStore = async () => {
 
     return `${SITE_BASE}/${path}`;
   };
+
+  /** Downloads if absent. Returns the published URL, or undefined on failure. */
+  const store = async (
+    kind: ImageKind,
+    source: GameSource,
+    id: string,
+    url: string | undefined,
+    options: { quiet?: boolean } = {},
+  ): Promise<string | undefined> =>
+    url ? put(kind, source, id, url, () => download(url), options) : undefined;
+
+  /**
+   * Copies a file committed to the repository into the library, for art that
+   * has no URL — badges the local scan pulled out of a game's own files.
+   * `relativePath` is from the repo root, and is what the manifest records.
+   */
+  const storeFile = async (
+    kind: ImageKind,
+    source: GameSource,
+    id: string,
+    relativePath: string,
+  ): Promise<string | undefined> =>
+    put(
+      kind,
+      source,
+      id,
+      relativePath,
+      async () => {
+        const body = await readFile(resolve(ROOT, relativePath)).catch(() => null);
+        return body && body.byteLength > 0 ? { body, contentType: null } : null;
+      },
+      {},
+    );
 
   const save = async () => {
     const sorted = Object.fromEntries(
@@ -143,6 +180,7 @@ export const createImageStore = async () => {
 
   return {
     store,
+    storeFile,
     save,
     stats: () => ({
       held: Object.keys(manifest).length,

@@ -12,6 +12,7 @@ type SourceTagProps = {
 const ICONS: Record<GameSource, IconName> = {
   steam: "monitor",
   retroachievements: "joystick",
+  local: "grid",
 };
 
 /**

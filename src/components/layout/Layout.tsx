@@ -10,8 +10,10 @@ import {
   SITE_NAME,
 } from "../../config/env";
 import useLibrary from "../../hooks/useLibrary";
-import { formatDateTime, formatRelative } from "../../utils/format";
+import { formatDateTime, formatRelative, SOURCE_LABELS } from "../../utils/format";
 import Icon from "../Icon";
+
+const listFormat = new Intl.ListFormat("en", { type: "conjunction" });
 
 const navLinkClass = ({ isActive }: { isActive: boolean }) =>
   `font-medium ${isActive ? "text-accent" : "text-foreground hover:text-accent"}`;
@@ -23,6 +25,14 @@ const Layout = ({ children }: PropsWithChildren) => {
   const library = useLibrary();
   const showingSample = library.status === "ready" && library.isSample;
   const collectedAt = library.status === "ready" ? library.meta?.collectedAt : undefined;
+  // "Local" names where the data came from, not a service, so it reads better
+  // spelled out. Before there is a meta file, the two services are assumed.
+  const sources = library.status === "ready" ? library.meta?.sources : undefined;
+  const collectedFrom = listFormat.format(
+    (sources?.length ? sources : (["steam", "retroachievements"] as const)).map((source) =>
+      source === "local" ? "local game files" : SOURCE_LABELS[source],
+    ),
+  );
 
   const navId = useId();
   const [menuOpen, setMenuOpen] = useState(false);
@@ -169,7 +179,7 @@ const Layout = ({ children }: PropsWithChildren) => {
           </p>
 
           <p className="mt-1.5 text-xs">
-            Collected from Steam and RetroAchievements
+            Collected from {collectedFrom}
             {collectedAt && (
               <>
                 , current as of{" "}

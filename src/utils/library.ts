@@ -45,7 +45,7 @@ export const isSortKey = (value: string | null): value is SortKey =>
   value !== null && SORT_KEYS.includes(value as SortKey);
 
 export const isSourceFilter = (value: string | null): value is SourceFilter =>
-  value === "all" || value === "steam" || value === "retroachievements";
+  value === "all" || value === "steam" || value === "retroachievements" || value === "local";
 
 export interface LibraryQuery {
   search: string;

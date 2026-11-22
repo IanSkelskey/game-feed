@@ -9,7 +9,11 @@
  * Copy this file verbatim into a consuming project — it has no imports.
  */
 
-export type GameSource = "steam" | "retroachievements";
+/**
+ * `local` is everything with no web API — an emulator, a standalone launcher —
+ * scanned on the player's own PC and committed to the repository.
+ */
+export type GameSource = "steam" | "retroachievements" | "local";
 
 /** Steam's product classification, used to keep tools out of game lists. */
 export type SteamAppType =
@@ -59,9 +63,12 @@ export interface PlayedGame {
   id: string;
   source: GameSource;
   title: string;
-  /** Console name for RetroAchievements, "Steam" for Steam. */
+  /**
+   * Console name for RetroAchievements, "Steam" for Steam, and whatever the
+   * game runs on for local games ("Nintendo Switch 2", "PC").
+   */
   platform: string;
-  /** Square icon. RA serves 96px, Steam 32px. */
+  /** Square icon. RA serves 96px, Steam 32px. Empty for local games. */
   iconUrl: string;
   /**
    * Portrait cover art. Steam games prefer Steam's native 600x900 library
@@ -71,7 +78,10 @@ export interface PlayedGame {
   coverUrl?: string;
   /** ISO-8601 timestamp of when the game was last played. */
   lastPlayedAt: string;
-  /** Steam playtime in minutes; absent for RetroAchievements records. */
+  /**
+   * Playtime in minutes, from Steam or the local scan. Absent for
+   * RetroAchievements records, and for a local game with none recorded.
+   */
   playtimeMinutes?: number;
   /** Steam product type; absent for RetroAchievements records. */
   steamType?: SteamAppType;

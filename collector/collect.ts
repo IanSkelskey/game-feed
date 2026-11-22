@@ -17,6 +17,7 @@ import { fileURLToPath } from "node:url";
 import { hydrateFromWindowsEnvironment } from "./lib/env";
 import { createImageStore } from "./lib/images";
 import { createGridClient } from "./lib/steamgriddb";
+import { LOCAL_ENV, collectLocal } from "./sources/local";
 import { RETRO_ENV, collectRetro } from "./sources/retroachievements";
 import { STEAM_ENV, collectSteam } from "./sources/steam";
 import type { FeedMeta, PlayedGame } from "../src/types";
@@ -25,9 +26,21 @@ const ROOT = fileURLToPath(new URL("..", import.meta.url));
 
 const META_PATH = "data/meta.json";
 
+/**
+ * `supplemental` sources read committed files rather than a service, so they
+ * always "succeed". They are left out of both safety checks below: a run with
+ * no credentials, or where every API failed, must still write nothing rather
+ * than publish a library of only the local games.
+ */
 const SOURCES = [
-  { label: "Steam", requiredEnv: STEAM_ENV, collect: collectSteam },
-  { label: "RetroAchievements", requiredEnv: RETRO_ENV, collect: collectRetro },
+  { label: "Steam", requiredEnv: STEAM_ENV, collect: collectSteam, supplemental: false },
+  {
+    label: "RetroAchievements",
+    requiredEnv: RETRO_ENV,
+    collect: collectRetro,
+    supplemental: false,
+  },
+  { label: "Local", requiredEnv: LOCAL_ENV, collect: collectLocal, supplemental: true },
 ];
 
 const write = async (relativePath: string, value: unknown) => {
@@ -52,10 +65,10 @@ const main = async () => {
     source.requiredEnv.every((name) => process.env[name]),
   );
 
-  if (configured.length === 0) {
-    const wanted = SOURCES.map(
-      (source) => `  ${source.label}: ${source.requiredEnv.join(", ")}`,
-    ).join("\n");
+  if (configured.every((source) => source.supplemental)) {
+    const wanted = SOURCES.filter((source) => !source.supplemental)
+      .map((source) => `  ${source.label}: ${source.requiredEnv.join(", ")}`)
+      .join("\n");
     throw new Error(`No credentials found. Set at least one source's variables:\n${wanted}`);
   }
 
@@ -64,11 +77,13 @@ const main = async () => {
 
   const games: PlayedGame[] = [];
   let failures = 0;
+  let fromServices = 0;
 
   for (const source of configured) {
     try {
       const collected = await source.collect(images, grids);
       games.push(...collected);
+      if (!source.supplemental) fromServices += collected.length;
       console.log(`${source.label}: ${collected.length} games`);
     } catch (error) {
       failures += 1;
@@ -76,7 +91,7 @@ const main = async () => {
     }
   }
 
-  if (games.length === 0) {
+  if (fromServices === 0) {
     throw new Error("No games collected. Leaving the published data untouched.");
   }
 

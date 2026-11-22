@@ -158,7 +158,17 @@ const GamePage = () => {
                       alt=""
                       loading="lazy"
                       decoding="async"
-                      className="h-14 w-14 shrink-0 rounded-md bg-track object-cover"
+                      // Pixel art (a 16px game texture) is upscaled with hard
+                      // edges rather than blurred. Decided by the image's own
+                      // size, so ordinary badges, which are scaled down, are
+                      // untouched. `object-top` shows the first frame of an
+                      // animated texture, which is a vertical strip of frames.
+                      onLoad={(event) => {
+                        if (event.currentTarget.naturalWidth <= 32) {
+                          event.currentTarget.style.imageRendering = "pixelated";
+                        }
+                      }}
+                      className="h-14 w-14 shrink-0 rounded-md bg-track object-cover object-top"
                     />
                   )}
                   <div className="min-w-0">

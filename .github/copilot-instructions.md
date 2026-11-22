@@ -9,8 +9,9 @@ Authoritative reference for AI agents working in this repository. Read fully bef
 Two halves that share one type contract:
 
 - **`collector/`** — Node scripts run by `tsx`. They call the Steam,
-  RetroAchievements and SteamGridDB APIs and write `data/games.json` plus an
-  append-only art library under `images/`.
+  RetroAchievements and SteamGridDB APIs, read the optional committed
+  `local/` files (games with no API; see `docs/local-games.md`), and write
+  `data/games.json` plus an append-only art library under `images/`.
 - **`src/`** — a React app that reads that JSON and renders it.
 
 `src/types/index.ts` is imported by both. It is the published contract: change
@@ -189,7 +190,9 @@ Call `useDocumentTitle(title?)` in every page. Never mutate `document.title` dir
 ## The collector
 
 - Runs under `tsx`, type-checked by `tsconfig.collector.json`. `erasableSyntaxOnly` is on: no constructor parameter properties, no enums, no namespaces.
-- A source that throws is reported and skipped so the other still publishes; a run that collects nothing exits non-zero **without writing**, so an outage can never blank a live site.
+- A source that throws is reported and skipped so the others still publish; a run that collects nothing exits non-zero **without writing**, so an outage can never blank a live site.
+- `local` is a _supplemental_ source: it reads committed files, so it always succeeds, and it is excluded from both checks above. A run where every API source fails still writes nothing rather than publishing only local games.
+- The template ships no local scanners. `collector/sources/local.ts` is the contract a fork's own scanner writes to; keep it emulator-agnostic.
 - The art library is append-only: never re-download a file that exists, never overwrite one. Published URLs are permanent.
 - `SITE_BASE` is derived (env → `GITHUB_REPOSITORY` → git origin). Do not hardcode a URL.
 
