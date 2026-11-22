@@ -18,17 +18,18 @@ const games: PlayedGame[] = await fetch(
 const [latest] = games;`;
 
 const TYPE_EXAMPLE = `export interface PlayedGame {
-  /** Namespaced ("ra-3291", "steam-440") so ids stay unique when merged. */
+  /** Namespaced ("ra-3291", "steam-440", "local-…") so ids stay unique when merged. */
   id: string;
-  source: "steam" | "retroachievements";
+  /** "local": a game with no web API, recorded on the owner's own PC. */
+  source: "steam" | "retroachievements" | "local";
   title: string;
-  /** Console name for RetroAchievements, "Steam" for Steam. */
+  /** Console name for RetroAchievements, "Steam" for Steam, anything for local. */
   platform: string;
   iconUrl: string;
   /** Portrait cover art. Absent when no usable art was found. */
   coverUrl?: string;
   lastPlayedAt: string;
-  /** Steam only. */
+  /** Steam and local games; absent for RetroAchievements. */
   playtimeMinutes?: number;
   steamType?: SteamAppType;
   /** Whether the game has achievements at all, independent of progress. */
@@ -147,7 +148,7 @@ const DocsPage = () => {
               <code>data/games.json</code>
             </dt>
             <dd className="mt-1 text-muted">
-              The current library: <code>PlayedGame[]</code>, both sources merged, newest first.
+              The current library: <code>PlayedGame[]</code>, every source merged, newest first.
             </dd>
           </div>
           <div className="rounded-lg border border-divider bg-raised p-3">
@@ -279,7 +280,9 @@ const DocsPage = () => {
         </h2>
         <p className="mb-4 mt-1 text-sm text-muted">
           This repository is a template. Fork it, set credentials for whichever sources you use, and
-          a workflow collects daily and republishes this site with your library in it.
+          a workflow collects daily and republishes this site with your library in it. Games with no
+          web API — emulators, standalone launchers — can be added from files you commit; the
+          repository&rsquo;s <code>docs/local-games.md</code> explains how.
         </p>
 
         <div className="overflow-x-auto">

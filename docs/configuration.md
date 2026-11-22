@@ -1,4 +1,4 @@
-[← README](../README.md) · **Configuration** · [The feed](feed.md) · [Development](development.md)
+[← README](../README.md) · **Configuration** · [The feed](feed.md) · [Local games](local-games.md) · [Development](development.md)
 
 # Configuration
 

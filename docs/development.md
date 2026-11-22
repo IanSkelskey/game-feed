@@ -1,4 +1,4 @@
-[← README](../README.md) · [Configuration](configuration.md) · [The feed](feed.md) · **Development**
+[← README](../README.md) · [Configuration](configuration.md) · [The feed](feed.md) · [Local games](local-games.md) · **Development**
 
 # Development
 
@@ -52,7 +52,8 @@ collector/            # Node, run by tsx — writes data/ and images/
 ├── collect.ts        # entry point: run each source, merge, write
 ├── config.ts         # limits, and the published base URL
 ├── lib/              # http, the art library, SteamGridDB, Windows env
-└── sources/          # steam.ts, retroachievements.ts
+└── sources/          # steam.ts, retroachievements.ts, local.ts
+local/                # optional: local games, committed — see local-games.md
 src/                  # React app — reads data/games.json
 ├── pages/            # Overview, Library, Game, Docs
 ├── components/       # cards, charts, meters, the icon choke point

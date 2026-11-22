@@ -15,7 +15,9 @@
 A template for publishing your own gaming history. It collects what you have
 been playing from **Steam** and **RetroAchievements**, keeps its own copy of the
 cover art and achievement badges, and publishes the lot as a browsable site
-**and** a static JSON feed any other app can read.
+**and** a static JSON feed any other app can read. Games with no web API —
+emulators, standalone launchers — can join them as
+[local games](docs/local-games.md).
 
 Everything runs on GitHub: a scheduled Action collects, commits, and deploys.
 There is no server, no database, and no key to hand out.
@@ -88,6 +90,7 @@ collector and the front end to disagree — and the type in
 | -------------------------------------- | --------------------------------------------------------------------------- |
 | [Configuration](docs/configuration.md) | Every `site.config.ts` option, and how to add one                           |
 | [The feed](docs/feed.md)               | The published contract, the image library, and the upstream APIs            |
+| [Local games](docs/local-games.md)     | Emulators and launchers with no API: the file format, and writing a scanner |
 | [Development](docs/development.md)     | Running it locally, the layout, scripts, workflows, conventions             |
 | [Security](SECURITY.md)                | Where keys live, and what publishing a feed about yourself actually exposes |
 | `/docs` on the running site            | The same feed reference, with real URLs and a live record filled in         |

@@ -80,6 +80,9 @@ export const createGridClient = () => {
     /** Poster for a Steam app, matched exactly by appid. */
     bySteamAppId: (appid: string) => gridsFor(`grids/steam/${appid}`),
 
+    /** Poster for one SteamGridDB game, by its id — no search involved. */
+    byGameId: (gameId: number) => gridsFor(`grids/game/${gameId}`),
+
     /** Poster for a non-Steam game, matched by fuzzy name search. */
     byTitle: async (title: string) => {
       const override = TITLE_OVERRIDES[title];

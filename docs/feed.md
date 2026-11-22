@@ -1,4 +1,4 @@
-[← README](../README.md) · [Configuration](configuration.md) · **The feed** · [Development](development.md)
+[← README](../README.md) · [Configuration](configuration.md) · **The feed** · [Local games](local-games.md) · [Development](development.md)
 
 # The feed
 
@@ -23,7 +23,7 @@ browser. `raw.githubusercontent.com` does not — use the Pages URL.
 
 | Path                             | What it is                                                  |
 | -------------------------------- | ----------------------------------------------------------- |
-| `data/games.json`                | `PlayedGame[]`, both sources merged, newest first           |
+| `data/games.json`                | `PlayedGame[]`, every source merged, newest first           |
 | `data/meta.json`                 | `FeedMeta` — when the data last changed, and how many games |
 | `data/history/<YYYY-MM-DD>.json` | A dated snapshot, written when the data changed             |
 | `images/…`                       | The art library                                             |
@@ -37,8 +37,11 @@ onto your own site, so `<img src={game.coverUrl}>` works with no rewriting.
 ## The image library
 
 ```
-images/{covers,icons,badges}/{steam,retroachievements}/<id>.<ext>
+images/{covers,icons,badges}/{steam,retroachievements,local}/<id>.<ext>
 ```
+
+`local` holds the art for [local games](local-games.md): covers from
+SteamGridDB, and badges copied from files committed under `local/badges/`.
 
 Append-only, on two rules:
 

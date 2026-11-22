@@ -26,6 +26,7 @@ const SOURCE_TABS: { value: SourceFilter; label: string }[] = [
   { value: "all", label: "All" },
   { value: "steam", label: SOURCE_LABELS.steam },
   { value: "retroachievements", label: SOURCE_LABELS.retroachievements },
+  { value: "local", label: SOURCE_LABELS.local },
 ];
 
 /**
@@ -63,6 +64,20 @@ const LibraryPage = () => {
 
   const platforms = useMemo(() => platformsOf(games), [games]);
   const shown = useMemo(() => selectGames(games, query), [games, query]);
+
+  // Local games are opt-in, so their tab appears only once there are some —
+  // a fork that never adds any never sees an empty one. Still shown while it
+  // is the active filter, so a saved link to it keeps a way back out.
+  const tabs = useMemo(
+    () =>
+      SOURCE_TABS.filter(
+        (tab) =>
+          tab.value !== "local" ||
+          query.source === "local" ||
+          games.some((game) => game.source === "local"),
+      ),
+    [games, query.source],
+  );
 
   /** Writes one control's value, dropping it from the URL at its default. */
   const update = (key: string, value: string, fallback: string) => {
@@ -165,7 +180,7 @@ const LibraryPage = () => {
 
         <div className="flex flex-wrap items-center gap-2">
           <span className="text-xs font-medium uppercase tracking-widest text-muted">Source</span>
-          {SOURCE_TABS.map((tab) => (
+          {tabs.map((tab) => (
             <button
               key={tab.value}
               type="button"

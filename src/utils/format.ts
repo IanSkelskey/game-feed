@@ -59,6 +59,8 @@ export const formatRelative = (iso: string, now = Date.now()) => {
 export const SOURCE_LABELS = {
   steam: "Steam",
   retroachievements: "RetroAchievements",
+  // Visitor-facing: "local" describes where the data comes from, not what it is.
+  local: "Other",
 } as const;
 
 /**

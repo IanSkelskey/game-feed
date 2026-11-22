@@ -8,4 +8,5 @@ package-lock.json
 # should never be able to fail `npm run verify`.
 data
 images
+local/scanned.json
 public/sample-games.json

@@ -47,7 +47,18 @@ const HomePage = () => {
     return <LibraryStatus state={library} />;
   }
 
-  const steamCount = games.filter((game) => game.source === "steam").length;
+  const countOf = (source: PlayedGame["source"]) =>
+    games.filter((game) => game.source === source).length;
+  // Only the sources actually present, so a library without local games reads
+  // exactly as it did before they existed.
+  const gamesDetail = [
+    [countOf("steam"), "on Steam"],
+    [countOf("retroachievements"), "emulated"],
+    [countOf("local"), "other"],
+  ]
+    .filter(([count]) => count)
+    .map(([count, label]) => `${count} ${label}`)
+    .join(" · ");
 
   /**
    * The default intro, which the config can replace with a plain sentence.
@@ -100,14 +111,14 @@ const HomePage = () => {
             icon="grid"
             label="Games"
             value={formatNumber(summary.gameCount)}
-            detail={`${steamCount} on Steam · ${summary.gameCount - steamCount} emulated`}
+            detail={gamesDetail}
           />
           {SHOW_PLAYTIME && (
             <StatTile
               icon="clock"
               label="Time played"
               value={formatPlaytime(summary.totalMinutes)}
-              detail="Steam reports playtime; RetroAchievements does not"
+              detail="Not counting RetroAchievements, which reports no playtime"
             />
           )}
           <StatTile
